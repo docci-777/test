@@ -1,0 +1,33 @@
+# ---- Godot 4 ----
+# 导入缓存与生成元数据（不入库，按需重建）
+.godot/
+*.import
+# 导出产物
+export/
+export_*/
+# 编辑器临时
+*.tmp
+
+# ---- 操作系统 ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 编辑器 / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---- GUT 测试输出 ----
+*.txt
+!docs/**/*.txt
+
+# ---- Python（占位 main.py 相关） ----
+__pycache__/
+*.pyc
+.venv/
+
+# ---- 日志 ----
+*.log
+logs/

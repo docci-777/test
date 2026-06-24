@@ -1,0 +1,6 @@
+{
+  "name": "test_terrain",
+  "type": "mountains",
+  "resource": "ore",
+  "count": 4
+}

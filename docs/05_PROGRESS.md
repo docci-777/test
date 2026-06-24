@@ -19,7 +19,7 @@
 
 | 阶段 | 名称 | 状态 | 依赖 |
 |------|------|------|------|
-| P0 | 项目脚手架与工具链 | ⬜ | — |
+| P0 | 项目脚手架与工具链 | ✅ | — |
 | P1 | 核心层数据模型 | ⬜ | P0 |
 | P2 | 棋盘拓扑与生成 | ⬜ | P1 |
 | P3 | 规则引擎：动作系统 | ⬜ | P2 |
@@ -43,14 +43,14 @@
 
 | ID | 任务 | 状态 | 测试 | 备注 |
 |----|------|------|------|------|
-| P0-1 | 初始化 Godot 4.x 工程 | ⬜ | — | project.godot 配置 |
-| P0-2 | 集成 GUT 测试框架 | ⬜ | 跑通示例测试 | addons/gut |
-| P0-3 | 建立目录结构（见 ARCHITECTURE §2） | ⬜ | — | |
-| P0-4 | 配置 Git 与 .gitignore | ⬜ | — | |
-| P0-5 | 编写 CI 脚本（headless 跑 GUT） | ⬜ | CI 跑通 | |
-| P0-6 | 数据加载器骨架 + paths.gd | ⬜ | loader_test | |
+| P0-1 | 初始化 Godot 4.x 工程 | ✅ | — | Godot 4.3 stable，project.godot 配置完成 |
+| P0-2 | 集成 GUT 测试框架 | ✅ | example_test.gd (4/4) | GUT 9.4.0（见 ADR-006） |
+| P0-3 | 建立目录结构（见 ARCHITECTURE §2） | ✅ | — | src/{core,app,net,ui,autoload} + data + tests |
+| P0-4 | 配置 Git 与 .gitignore | ✅ | — | 仓库已 init |
+| P0-5 | 编写 CI 脚本（headless 跑 GUT） | ✅ | CI 跑通 | scripts/run_tests.sh，21 测试全绿 |
+| P0-6 | 数据加载器骨架 + paths.gd | ✅ | data_loader_test.gd (10/10) | 含 Result 最小骨架（P1-1 扩展） |
 
-**出口标准**：`godot --headless` 跑 GUT 返回 0；空测试套件可执行。
+**出口标准**：`godot --headless` 跑 GUT 返回 0；21 测试 / 40 断言全绿。✅ 达成
 
 ---
 
@@ -59,7 +59,7 @@
 
 | ID | 任务 | 状态 | 测试 | 备注 |
 |----|------|------|------|------|
-| P1-1 | Result 类 | ⬜ | result_test | ok/err/value |
+| P1-1 | Result 类 | ⬜ | result_test.gd (7/7) | 最小骨架已于 P0-6 创建，本任务扩展错误码体系 |
 | P1-2 | 资源类型枚举与数据 | ⬜ | resource_test | 数据驱动 |
 | P1-3 | PlayerState 类 | ⬜ | player_state_test | 手牌/建筑/点数 |
 | P1-4 | GameState 类 | ⬜ | game_state_test | 全局状态容器 |
@@ -274,6 +274,8 @@
 | 日期 | 类型 | 描述 | 影响 |
 |------|------|------|------|
 | 2026-06-24 | init | 初始规格建立 | 全部 |
+| 2026-06-24 | feat | P0 完成：工程脚手架、GUT 9.4.0、DataLoader、Result 骨架 | P0 |
+| 2026-06-24 | adr | ADR-006：GUT 锁定 9.4.0（9.5.0+ 引入 class_name 循环依赖，Godot 4.3 不支持） | 测试框架 |
 
 ## 5. 阻塞与风险登记
 
@@ -294,3 +296,23 @@
 - 遗留问题：...
 - 下次建议：...
 ```
+
+---
+
+## 会话 2026-06-24 08:40
+- 范围：P0-1 ~ P0-6
+- 完成任务：P0-1 ✅, P0-2 ✅, P0-3 ✅, P0-4 ✅, P0-5 ✅, P0-6 ✅
+- 新增测试：
+  - `project/tests/unit/example_test.gd`（GUT 冒烟，4 测试）
+  - `project/tests/unit/core/result_test.gd`（Result，7 测试）
+  - `project/tests/unit/core/data_loader_test.gd`（DataLoader，10 测试）
+- 新增源码：
+  - `project/project.godot`、`project/icon.svg`
+  - `project/src/autoload/paths.gd`
+  - `project/src/core/result.gd`（最小骨架，P1-1 扩展）
+  - `project/src/core/data_loader.gd`
+- 测试结果：21 测试 / 40 断言全绿，退出码 0
+- 工具链：Godot 4.3 stable + GUT 9.4.0
+- 遗留问题：无
+- 决策记录：ADR-006（GUT 锁定 9.4.0，因 9.5.0+ class_name 循环依赖与 Godot 4.3 不兼容）
+- 下次建议：进入 P1，从 P1-1 扩展 Result 错误码体系开始，随后 P1-2 资源类型、P1-3 PlayerState、P1-4 GameState、P1-5 数据文件
