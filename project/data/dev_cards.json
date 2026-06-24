@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "dev_cards": {
+    "knight": {
+      "name": "骑士",
+      "count": 14,
+      "victory_points": 0,
+      "usable_same_turn": false,
+      "effect": "move_robber_and_steal",
+      "counts_for_largest_army": true
+    },
+    "victory_point": {
+      "name": "胜利点",
+      "count": 5,
+      "victory_points": 1,
+      "usable_same_turn": true,
+      "effect": "add_victory_point",
+      "hidden": true,
+      "counts_for_largest_army": false
+    },
+    "road_building": {
+      "name": "道路建设",
+      "count": 2,
+      "victory_points": 0,
+      "usable_same_turn": false,
+      "effect": "build_two_roads",
+      "counts_for_largest_army": false
+    },
+    "year_of_plenty": {
+      "name": "发明",
+      "count": 2,
+      "victory_points": 0,
+      "usable_same_turn": false,
+      "effect": "take_two_resources",
+      "counts_for_largest_army": false
+    },
+    "monopoly": {
+      "name": "垄断",
+      "count": 2,
+      "victory_points": 0,
+      "usable_same_turn": false,
+      "effect": "monopoly_resource",
+      "counts_for_largest_army": false
+    }
+  },
+  "total_count": 25
+}

@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "buildings": {
+    "road": {
+      "name": "道路",
+      "cost": {"wood": 1, "brick": 1},
+      "victory_points": 0,
+      "position_type": "edge",
+      "terrain_category": "land",
+      "max_per_player": 15
+    },
+    "ship": {
+      "name": "船只",
+      "cost": {"wood": 1, "sheep": 1},
+      "victory_points": 0,
+      "position_type": "edge",
+      "terrain_category": "sea",
+      "max_per_player": 15,
+      "expansion": "seafarers",
+      "movable": true
+    },
+    "settlement": {
+      "name": "定居点",
+      "cost": {"wood": 1, "brick": 1, "sheep": 1, "wheat": 1},
+      "victory_points": 1,
+      "position_type": "vertex",
+      "terrain_category": "land",
+      "max_per_player": 5,
+      "production_multiplier": 1
+    },
+    "city": {
+      "name": "城市",
+      "cost": {"wheat": 2, "ore": 3},
+      "victory_points": 2,
+      "position_type": "vertex",
+      "terrain_category": "land",
+      "max_per_player": 4,
+      "production_multiplier": 2,
+      "upgrades_from": "settlement"
+    },
+    "dev_card": {
+      "name": "发展卡",
+      "cost": {"sheep": 1, "wheat": 1, "ore": 1},
+      "victory_points": 0,
+      "position_type": "none",
+      "terrain_category": "none",
+      "max_per_player": -1
+    }
+  }
+}

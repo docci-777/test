@@ -20,7 +20,7 @@
 | 阶段 | 名称 | 状态 | 依赖 |
 |------|------|------|------|
 | P0 | 项目脚手架与工具链 | ✅ | — |
-| P1 | 核心层数据模型 | ⬜ | P0 |
+| P1 | 核心层数据模型 | ✅ | P0 |
 | P2 | 棋盘拓扑与生成 | ⬜ | P1 |
 | P3 | 规则引擎：动作系统 | ⬜ | P2 |
 | P4 | 规则引擎：基础建造与产出 | ⬜ | P3 |
@@ -59,14 +59,14 @@
 
 | ID | 任务 | 状态 | 测试 | 备注 |
 |----|------|------|------|------|
-| P1-1 | Result 类 | ⬜ | result_test.gd (7/7) | 最小骨架已于 P0-6 创建，本任务扩展错误码体系 |
-| P1-2 | 资源类型枚举与数据 | ⬜ | resource_test | 数据驱动 |
-| P1-3 | PlayerState 类 | ⬜ | player_state_test | 手牌/建筑/点数 |
-| P1-4 | GameState 类 | ⬜ | game_state_test | 全局状态容器 |
-| P1-5 | 数据文件：terrains/buildings/dev_cards/ports | ⬜ | data_loader_test | JSON |
-| P1-6 | DataLoader 加载与校验 | ⬜ | data_loader_test | |
+| P1-1 | Result 类 | ✅ | result_test.gd (12/12) | 扩展至 22 个错误码 + 分类查询 + 名称查询 |
+| P1-2 | 资源类型枚举与数据 | ✅ | resource_test.gd (23/23) | ResType + ResourceSet（避开 Godot 内置 ResourceType） |
+| P1-3 | PlayerState 类 | ✅ | player_state_test.gd (30/30) | 手牌/建筑/发展卡/胜利点/成就/弃半/clone |
+| P1-4 | GameState 类 | ✅ | game_state_test.gd (30/30) | 玩家/回合/银行/牌堆/强盗/胜利判定/clone |
+| P1-5 | 数据文件：terrains/buildings/dev_cards/ports | ✅ | data_objects_test.gd (16/16) | 4 个 JSON + 4 个数据对象类 |
+| P1-6 | DataLoader 加载与校验 | ✅ | data_loader_extended_test.gd (12/12) | 4 个强类型加载方法 + 结构校验 |
 
-**出口标准**：核心数据模型单元测试全绿；可在无场景下实例化。
+**出口标准**：核心数据模型单元测试全绿；可在无场景下实例化。✅ 达成（137 测试 / 303 断言）
 
 ---
 
@@ -276,6 +276,9 @@
 | 2026-06-24 | init | 初始规格建立 | 全部 |
 | 2026-06-24 | feat | P0 完成：工程脚手架、GUT 9.4.0、DataLoader、Result 骨架 | P0 |
 | 2026-06-24 | adr | ADR-006：GUT 锁定 9.4.0（9.5.0+ 引入 class_name 循环依赖，Godot 4.3 不支持） | 测试框架 |
+| 2026-06-24 | refactor | 文件按游戏开发标准模式分门别类（assets/scenes/data/scripts 细分） | 目录结构 |
+| 2026-06-24 | feat | P1 完成：核心数据模型（Result/ResType/ResourceSet/PlayerState/GameState + 4 数据对象 + 4 JSON） | P1 |
+| 2026-06-24 | adr | ADR-007：资源类型类命名为 ResType 而非 ResourceType，避免与 Godot 内置枚举冲突 | 命名 |
 
 ## 5. 阻塞与风险登记
 
@@ -316,3 +319,33 @@
 - 遗留问题：无
 - 决策记录：ADR-006（GUT 锁定 9.4.0，因 9.5.0+ class_name 循环依赖与 Godot 4.3 不兼容）
 - 下次建议：进入 P1，从 P1-1 扩展 Result 错误码体系开始，随后 P1-2 资源类型、P1-3 PlayerState、P1-4 GameState、P1-5 数据文件
+
+---
+
+## 会话 2026-06-24 09:30
+- 范围：P1-1 ~ P1-6
+- 完成任务：P1-1 ✅, P1-2 ✅, P1-3 ✅, P1-4 ✅, P1-5 ✅, P1-6 ✅
+- 新增测试：
+  - `project/tests/unit/core/result_test.gd`（扩展至 12 测试）
+  - `project/tests/unit/core/resource_test.gd`（ResType + ResourceSet，23 测试）
+  - `project/tests/unit/core/data_objects_test.gd`（4 数据对象 + 真实文件加载，16 测试）
+  - `project/tests/unit/core/player_state_test.gd`（30 测试）
+  - `project/tests/unit/core/game_state_test.gd`（30 测试）
+  - `project/tests/unit/core/data_loader_extended_test.gd`（强类型加载，12 测试）
+- 新增源码：
+  - `project/src/core/result.gd`（扩展 22 错误码 + is_rule_error + error_name）
+  - `project/src/core/resource_type.gd`（ResType 枚举）
+  - `project/src/core/resource_set.gd`（ResourceSet 集合运算）
+  - `project/src/core/terrain_def.gd`、`building_def.gd`、`dev_card_def.gd`、`port_def.gd`（4 数据对象）
+  - `project/src/core/player_state.gd`（玩家状态）
+  - `project/src/core/game_state.gd`（全局状态 + Phase 枚举）
+  - `project/src/core/data_loader.gd`（扩展 4 个强类型加载方法）
+- 新增数据文件：
+  - `project/data/terrains.json`（9 种地形，含海洋扩展）
+  - `project/data/buildings.json`（5 种建筑）
+  - `project/data/dev_cards.json`（5 种发展卡，共 25 张）
+  - `project/data/ports.json`（6 种港口，共 9 个）
+- 测试结果：137 测试 / 303 断言全绿，退出码 0
+- 决策记录：ADR-007（ResType 命名避开 Godot 内置 ResourceType 冲突）
+- 遗留问题：无
+- 下次建议：进入 P2 棋盘拓扑与生成，从 P2-1 Hex 坐标系开始

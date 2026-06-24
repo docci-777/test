@@ -108,3 +108,4 @@
 - **ADR-004**：几何色块美术，换取开发速度，渲染层抽象后可后续替换素材。
 - **ADR-005**：服务器权威模型，避免客户端作弊与状态不一致，代价是延迟敏感操作需乐观反馈（卡坦为回合制，可接受）。
 - **ADR-006**：GUT 锁定 9.4.0。9.5.0+ 引入 `Logger`↔`GutErrorTracker` 的 class_name 循环依赖，Godot 4.3 不支持循环依赖导致解析失败。9.4.0 是无该问题的最新版本。若后续升级到 Godot 4.4+（修复了循环依赖），可解锁 GUT 9.5.0+。
+- **ADR-007**：资源类型枚举类命名为 `ResType` 而非 `ResourceType`，避免与 Godot 内置 `ResourceType` 枚举（ResourceSaver/Loader 用）冲突导致 class_name 解析失败。

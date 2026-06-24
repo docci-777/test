@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "ports": {
+    "generic_3to1": {
+      "name": "通用港口",
+      "trade_ratio": "3:1",
+      "give_count": 3,
+      "receive_count": 1,
+      "resource": null,
+      "count_base": 4
+    },
+    "wood_2to1": {
+      "name": "木材港口",
+      "trade_ratio": "2:1",
+      "give_count": 2,
+      "receive_count": 1,
+      "resource": "wood",
+      "count_base": 1
+    },
+    "brick_2to1": {
+      "name": "砖块港口",
+      "trade_ratio": "2:1",
+      "give_count": 2,
+      "receive_count": 1,
+      "resource": "brick",
+      "count_base": 1
+    },
+    "sheep_2to1": {
+      "name": "羊毛港口",
+      "trade_ratio": "2:1",
+      "give_count": 2,
+      "receive_count": 1,
+      "resource": "sheep",
+      "count_base": 1
+    },
+    "wheat_2to1": {
+      "name": "麦子港口",
+      "trade_ratio": "2:1",
+      "give_count": 2,
+      "receive_count": 1,
+      "resource": "wheat",
+      "count_base": 1
+    },
+    "ore_2to1": {
+      "name": "矿石港口",
+      "trade_ratio": "2:1",
+      "give_count": 2,
+      "receive_count": 1,
+      "resource": "ore",
+      "count_base": 1
+    }
+  },
+  "total_count": 9
+}

@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "terrains": {
+    "mountains": {
+      "name": "山脉",
+      "resource": "ore",
+      "count_base": 4,
+      "buildable": true,
+      "robber_blocks": true,
+      "category": "land"
+    },
+    "hills": {
+      "name": "丘陵",
+      "resource": "brick",
+      "count_base": 3,
+      "buildable": true,
+      "robber_blocks": true,
+      "category": "land"
+    },
+    "forest": {
+      "name": "森林",
+      "resource": "wood",
+      "count_base": 4,
+      "buildable": true,
+      "robber_blocks": true,
+      "category": "land"
+    },
+    "fields": {
+      "name": "麦田",
+      "resource": "wheat",
+      "count_base": 4,
+      "buildable": true,
+      "robber_blocks": true,
+      "category": "land"
+    },
+    "pasture": {
+      "name": "牧场",
+      "resource": "sheep",
+      "count_base": 4,
+      "buildable": true,
+      "robber_blocks": true,
+      "category": "land"
+    },
+    "desert": {
+      "name": "沙漠",
+      "resource": null,
+      "count_base": 1,
+      "buildable": true,
+      "robber_blocks": true,
+      "category": "land"
+    },
+    "gold": {
+      "name": "黄金地形",
+      "resource": "any",
+      "count_base": 0,
+      "buildable": true,
+      "robber_blocks": true,
+      "category": "land",
+      "expansion": "seafarers"
+    },
+    "shallow_water": {
+      "name": "浅海",
+      "resource": null,
+      "count_base": 0,
+      "buildable": true,
+      "robber_blocks": false,
+      "category": "sea",
+      "expansion": "seafarers",
+      "ship_buildable": true
+    },
+    "deep_water": {
+      "name": "深海",
+      "resource": null,
+      "count_base": 0,
+      "buildable": false,
+      "robber_blocks": false,
+      "category": "sea",
+      "expansion": "seafarers",
+      "ship_buildable": false
+    }
+  }
+}
