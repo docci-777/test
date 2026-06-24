@@ -37,55 +37,107 @@
 
 ## 2. 目录结构
 
+按游戏开发标准模式分门别类组织。**每类文件必须放入对应目录**，禁止散落。
+
 ```
 /workspace/
 ├── docs/                          # 规格文档（本目录）
-├── project/                       # Godot 工程根
-│   ├── project.godot
-│   ├── data/                      # 数据驱动资源
-│   │   ├── terrains.json          # 地形定义
-│   │   ├── buildings.json         # 建筑成本与效果
-│   │   ├── dev_cards.json         # 发展卡定义
-│   │   ├── ports.json             # 港口定义
-│   │   └── scenarios/             # 场景布局
-│   │       ├── base_4p.json
-│   │       ├── seafarers_new_world.json
-│   │       └── seafarers_desert.json
-│   ├── src/
-│   │   ├── core/                  # Layer 1: 规则引擎
-│   │   │   ├── board.gd           # 棋盘拓扑
-│   │   │   ├── hex.gd             # 六边形/顶点/边
-│   │   │   ├── player_state.gd    # 玩家状态
-│   │   │   ├── game_state.gd      # 全局游戏状态
-│   │   │   ├── rules_engine.gd    # 规则校验与执行入口
-│   │   │   ├── actions/           # 动作定义（命令模式）
-│   │   │   │   ├── action.gd
-│   │   │   │   ├── build_action.gd
-│   │   │   │   ├── trade_action.gd
-│   │   │   │   └── ...
-│   │   │   ├── events/            # 事件定义
-│   │   │   └── data/              # 数据加载器
-│   │   ├── app/                   # Layer 2: 游戏流程
-│   │   │   ├── turn_fsm.gd        # 回合状态机
-│   │   │   ├── game_session.gd    # 单局会话
-│   │   │   └── event_bus.gd       # 事件总线
-│   │   ├── net/                   # Layer 3: 网络
-│   │   │   ├── server.gd
-│   │   │   ├── client.gd
-│   │   │   ├── protocol.gd        # 消息序列化
-│   │   │   └── ai_player.gd       # AI 作为特殊客户端
-│   │   ├── ui/                    # Layer 4: 表现
-│   │   │   ├── board_view.gd
-│   │   │   ├── hud.gd
-│   │   │   ├── trade_dialog.gd
-│   │   │   └── ...
-│   │   └── autoload/              # 全局单例
-│   ├── tests/                     # GUT 测试
-│   │   ├── unit/
-│   │   └── integration/
-│   └── assets/                    # 几何色块主题
-└── main.py                        # （占位，可删）
+├── scripts/                       # 工具脚本（CI、构建等，非 Godot 资源）
+│   └── run_tests.sh
+└── project/                       # Godot 工程根
+    ├── project.godot
+    ├── icon.svg
+    ├── .gutconfig.json
+    ├── addons/                    # 第三方插件（GUT 等，不修改）
+    │   └── gut/
+    ├── data/                      # 数据驱动资源（规则数据，JSON）
+    │   ├── .gdignore              # 阻止 Godot 扫描数据文件
+    │   ├── terrains.json          # 地形定义
+    │   ├── buildings.json         # 建筑成本与效果
+    │   ├── dev_cards.json         # 发展卡定义
+    │   ├── ports.json             # 港口定义
+    │   └── scenarios/             # 场景布局数据
+    │       ├── base_4p.json
+    │       ├── seafarers_new_world.json
+    │       └── seafarers_desert.json
+    ├── assets/                    # 美术与音频资源（按类型细分）
+    │   ├── sprites/               # 精灵图
+    │   │   ├── terrain/           # 地形六边形贴图
+    │   │   ├── buildings/         # 建筑（定居点/城市/道路/船只）
+    │   │   ├── cards/             # 资源卡/发展卡图面
+    │   │   └── icons/             # UI 图标（骰子/港口/按钮）
+    │   ├── audio/
+    │   │   ├── music/             # 背景音乐
+    │   │   └── sfx/               # 音效（掷骰/建造/交易）
+    │   ├── fonts/                 # 字体
+    │   ├── themes/                # UI 主题资源（.tres）
+    │   └── shaders/               # 着色器
+    ├── scenes/                    # 场景文件（.tscn，按用途细分）
+    │   ├── main/                  # 主入口场景
+    │   ├── board/                 # 棋盘相关场景
+    │   └── ui/                    # UI 场景（HUD/对话框/结算）
+    ├── src/                       # 源码（按层分，见 §1 分层）
+    │   ├── autoload/              # 全局单例（Paths 等仅承载常量/注册表）
+    │   │   └── paths.gd
+    │   ├── core/                  # Layer 1: 规则引擎（纯逻辑，无 Node）
+    │   │   ├── board.gd
+    │   │   ├── hex.gd
+    │   │   ├── player_state.gd
+    │   │   ├── game_state.gd
+    │   │   ├── rules_engine.gd
+    │   │   ├── result.gd
+    │   │   ├── data_loader.gd
+    │   │   ├── actions/           # 动作定义（命令模式）
+    │   │   │   ├── action.gd
+    │   │   │   ├── build_action.gd
+    │   │   │   ├── trade_action.gd
+    │   │   │   └── ...
+    │   │   ├── events/            # 事件定义
+    │   │   └── data/              # 数据加载与数据对象
+    │   ├── app/                   # Layer 2: 游戏流程
+    │   │   ├── turn_fsm.gd
+    │   │   ├── game_session.gd
+    │   │   └── event_bus.gd
+    │   ├── net/                   # Layer 3: 网络
+    │   │   ├── server.gd
+    │   │   ├── client.gd
+    │   │   ├── protocol.gd
+    │   │   └── ai_player.gd
+    │   └── ui/                    # Layer 4: 表现（脚本，场景在 scenes/）
+    │       ├── board_view.gd
+    │       ├── hud.gd
+    │       └── trade_dialog.gd
+    └── tests/                     # GUT 测试
+        ├── fixtures/              # 测试数据
+        ├── unit/                  # 单元测试（镜像 src/ 结构）
+        │   └── core/
+        └── integration/           # 集成测试
 ```
+
+### 2.1 文件归属规则（强制）
+
+| 文件类型 | 必须放入 | 说明 |
+|----------|----------|------|
+| 规则数据 JSON | `data/` | terrains/buildings/dev_cards/ports |
+| 场景布局 JSON | `data/scenarios/` | 各场景地形/数字/港口布局 |
+| 精灵图 PNG/SVG | `assets/sprites/<子类>/` | 按 terrain/buildings/cards/icons 细分 |
+| 音乐 OGG/MP3 | `assets/audio/music/` | 背景音乐 |
+| 音效 WAV/OGG | `assets/audio/sfx/` | 短音效 |
+| 字体 TTF/OTF | `assets/fonts/` | |
+| UI 主题 .tres | `assets/themes/` | |
+| 着色器 .gdshader | `assets/shaders/` | |
+| 场景 .tscn | `scenes/<子类>/` | main/board/ui |
+| GDScript 源码 | `src/<层>/` | 按分层归属 |
+| 测试脚本 | `tests/unit/` 或 `tests/integration/` | 镜像 src/ 结构 |
+| 测试数据 | `tests/fixtures/` | |
+| 工具脚本 .sh/.py | `scripts/` | 非 Godot 资源 |
+| 规格文档 .md | `docs/` | |
+
+### 2.2 命名补充
+
+- 场景文件：`<用途>.tscn`，如 `board_view.tscn`、`trade_dialog.tscn`
+- 场景脚本与场景同名放 `src/ui/`，如 `board_view.gd` 对应 `scenes/board/board_view.tscn`
+- 资源文件：`snake_case` 扩展名，如 `terrain_mountain.svg`、`sfx_dice_roll.wav`
 
 ## 3. 核心层设计 (Layer 1)
 
