@@ -35,13 +35,38 @@ var bank: ResourceSet
 ## 发展卡牌堆（剩余可抽）
 var dev_card_deck: Array = [] # Array of String
 ## 强盗所在六边形 ID（-1 表示未放置）
+## 强盗位置（hex_id，-1 表示未放置）
 var robber_hex_id: int = -1
+## 本回合是否已掷骰
+var has_rolled_this_turn: bool = false
+## 是否需要移动强盗（掷出 7 后）
+var robber_required: bool = false
+## 初始放置轮次（1=第一轮正向, 2=第二轮反向）
+var setup_round: int = 1
+## 初始放置方向（1=正向, -1=反向）
+var setup_direction: int = 1
+## 初始放置时刚放置的定居点顶点（用于道路连接校验）
+var setup_last_settlement_vertex: int = -1
+## 初始放置时当前玩家是否已放置定居点（等待放置道路）
+var setup_settlement_placed: bool = false
 ## 游戏是否结束
 var is_game_over: bool = false
 ## 获胜者（游戏结束时设置）
 var winner: PlayerState = null
 ## 场景标识（基础版/海洋扩展场景）
 var scenario_id: String = "base_4p"
+## 建筑定义（id -> BuildingDef，配置数据，不可变）
+var buildings: Dictionary = {}
+## 地形定义（id -> TerrainDef，配置数据，不可变）
+var terrains: Dictionary = {}
+## 港口定义（id -> PortDef，配置数据，不可变）
+var ports: Dictionary = {}
+## 发展卡定义（id -> DevCardDef，配置数据，不可变）
+var dev_cards: Dictionary = {}
+## 棋盘拓扑（Board 实例，配置数据，不可变）
+var board: Board = null
+## 建筑放置状态（vertex_id/edge_id -> Placement）
+var placements: Dictionary = {}
 
 
 func _init() -> void:
@@ -185,9 +210,21 @@ func clone() -> GameState:
 	c.bank = bank.clone()
 	c.dev_card_deck = dev_card_deck.duplicate()
 	c.robber_hex_id = robber_hex_id
+	c.has_rolled_this_turn = has_rolled_this_turn
+	c.robber_required = robber_required
+	c.setup_round = setup_round
+	c.setup_direction = setup_direction
+	c.setup_last_settlement_vertex = setup_last_settlement_vertex
+	c.setup_settlement_placed = setup_settlement_placed
 	c.is_game_over = is_game_over
 	c.winner = winner  # 引用共享，不应修改
 	c.scenario_id = scenario_id
+	c.buildings = buildings  # 配置数据，共享引用
+	c.terrains = terrains  # 配置数据，共享引用
+	c.ports = ports  # 配置数据，共享引用
+	c.dev_cards = dev_cards  # 配置数据，共享引用
+	c.board = board  # 拓扑数据，共享引用
+	c.placements = placements.duplicate(true)  # 放置状态，深拷贝
 	for p in players:
 		c.players.append(p.clone())
 	return c

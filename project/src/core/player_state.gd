@@ -26,6 +26,8 @@ var has_longest_road: bool = false
 var has_largest_army: bool = false
 ## 本回合是否已使用发展卡
 var dev_card_used_this_turn: bool = false
+## 本回合购买的发展卡计数（card_id -> count，用于当回合不可用规则）
+var dev_cards_bought_this_turn: Dictionary = {}
 
 
 func _init(pid: int = 0, col: String = "red") -> void:
@@ -68,6 +70,12 @@ func discard_half_count() -> int:
 	return hand_size() / 2
 
 
+## 弃掉指定资源集合（用于 7 点弃半）。
+## 调用前应确保资源足够。
+func discard(rs: ResourceSet) -> void:
+	resources.subtract_set(rs)
+
+
 # ---- 建筑操作 ----
 
 ## 增加建筑计数。
@@ -91,8 +99,12 @@ func upgrade_settlement_to_city() -> void:
 # ---- 发展卡操作 ----
 
 ## 添加发展卡到手牌。
-func add_dev_card(card_id: String) -> void:
+## [param card_id] 卡牌标识
+## [param bought_this_turn] 是否本回合购买（默认 true，用于当回合不可用规则）
+func add_dev_card(card_id: String, bought_this_turn: bool = true) -> void:
 	dev_cards_hand.append(card_id)
+	if bought_this_turn:
+		dev_cards_bought_this_turn[card_id] = dev_cards_bought_this_turn.get(card_id, 0) + 1
 
 
 ## 使用发展卡（从手牌移除并处理副作用）。
@@ -113,6 +125,14 @@ func use_dev_card(card_id: String) -> bool:
 ## 是否持有指定发展卡。
 func has_dev_card(card_id: String) -> bool:
 	return dev_cards_hand.has(card_id)
+
+
+## 是否有本回合不可使用的发展卡（非 usable_same_turn 且非本回合购买）。
+## [return] true 表示手牌中至少有 1 张该类型卡牌不是本回合购买的
+func has_usable_dev_card(card_id: String) -> bool:
+	var hand_count: int = dev_cards_hand.count(card_id)
+	var bought_this_turn: int = int(dev_cards_bought_this_turn.get(card_id, 0))
+	return hand_count > bought_this_turn
 
 
 # ---- 胜利点 ----
@@ -139,6 +159,7 @@ func total_victory_points() -> int:
 ## 回合开始时重置本回合标记。
 func reset_turn_flags() -> void:
 	dev_card_used_this_turn = false
+	dev_cards_bought_this_turn.clear()
 
 
 # ---- 克隆 ----
@@ -154,4 +175,5 @@ func clone() -> PlayerState:
 	c.has_longest_road = has_longest_road
 	c.has_largest_army = has_largest_army
 	c.dev_card_used_this_turn = dev_card_used_this_turn
+	c.dev_cards_bought_this_turn = dev_cards_bought_this_turn.duplicate()
 	return c
