@@ -386,9 +386,9 @@ func _on_vertex_clicked(vertex_id: int) -> void:
 				_hud.show_message("放置失败：%s" % r.error_message)
 				return
 			_setup_settlement_vertex = vertex_id
-			_session.state.setup_settlement_placed = true
 			_board_view.clear_build_mode()
-			_refresh_after_action()
+			# 只刷新视图，不触发玩家切换（定居点放完还要放道路）
+			_refresh_all_views()
 			# 继续放置道路
 			_start_setup_placement()
 
@@ -426,12 +426,10 @@ func _on_edge_clicked(edge_id: int) -> void:
 				_hud.show_message("放置失败：%s" % r.error_message)
 				return
 			_setup_settlement_vertex = -1
-			_session.state.setup_settlement_placed = false
 			_board_view.clear_build_mode()
 			_ui_mode = UIBuildMode.NONE
+			# 放完道路后整个 SETUP 步骤完成，_refresh_after_action 会触发玩家切换
 			_refresh_after_action()
-			# SETUP 阶段放置完成后切换玩家
-			_show_player_switch()
 
 		UIBuildMode.BUILD_ROAD:
 			var action := BuildAction.new(player.player_id, "road", edge_id)
