@@ -4,7 +4,7 @@
 ## 管理游戏流程：初始放置 → 掷骰 → 行动 → 回合切换。
 ##
 ## 见 ARCHITECTURE §6：表现层不直接改状态，通过 GameSession.submit_action 提交动作。
-class_name GameController extends Node2D
+class_name GameController extends Control
 
 # ---- 子视图 ----
 var _board_view: BoardView
@@ -36,6 +36,7 @@ var _steal_candidates: Array = []
 
 
 func _ready() -> void:
+	set_anchors_preset(Control.PRESET_FULL_RECT)
 	_create_views()
 	_connect_signals()
 	_start_new_game()

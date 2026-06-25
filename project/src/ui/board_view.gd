@@ -4,7 +4,7 @@
 ## 处理点击交互，将用户输入转换为位置选择信号。
 ##
 ## 见 ARCHITECTURE §6.1：视图与状态分离，不直接改状态。
-class_name BoardView extends Node2D
+class_name BoardView extends Control
 
 # ---- 信号 ----
 ## 玩家点击了顶点（建筑放置）
@@ -39,6 +39,9 @@ var _font: Font
 
 func _ready() -> void:
 	_font = ThemeDB.get_default_theme().default_font
+	# Control 需要占满父节点区域才能接收整个棋盘的点击
+	set_anchors_preset(Control.PRESET_FULL_RECT)
+	mouse_filter = Control.MOUSE_FILTER_STOP
 
 
 ## 更新视图（由 GameController 调用）。
@@ -265,8 +268,8 @@ func _draw_highlights() -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var pos: Vector2 = make_input_local(event).position
-		_handle_click(pos)
+		# Control 的 _gui_input 收到的 event 已是局部坐标
+		_handle_click(event.position)
 
 
 func _handle_click(pos: Vector2) -> void:
