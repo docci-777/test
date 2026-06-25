@@ -21,13 +21,13 @@
 |------|------|------|------|
 | P0 | 项目脚手架与工具链 | ✅ | — |
 | P1 | 核心层数据模型 | ✅ | P0 |
-| P2 | 棋盘拓扑与生成 | ⬜ | P1 |
-| P3 | 规则引擎：动作系统 | ⬜ | P2 |
-| P4 | 规则引擎：基础建造与产出 | ⬜ | P3 |
-| P5 | 规则引擎：交易 | ⬜ | P4 |
-| P6 | 规则引擎：发展卡 | ⬜ | P4 |
-| P7 | 规则引擎：强盗与成就 | ⬜ | P4 |
-| P8 | 应用层：回合状态机 | ⬜ | P3-P7 |
+| P2 | 棋盘拓扑与生成 | ✅ | P1 |
+| P3 | 规则引擎：动作系统 | ✅ | P2 |
+| P4 | 规则引擎：基础建造与产出 | ✅ | P3 |
+| P5 | 规则引擎：交易 | ✅ | P4 |
+| P6 | 规则引擎：发展卡 | ✅ | P4 |
+| P7 | 规则引擎：强盗与成就 | ✅ | P4 |
+| P8 | 应用层：回合状态机 | ✅ | P3-P7 |
 | P9 | 表现层：本地渲染（热座可玩） | ⬜ | P8 |
 | P10 | 海洋扩展：船只与场景 | ⬜ | P9 |
 | P11 | 网络层：联机对战 | ⬜ | P9 |
@@ -75,14 +75,14 @@
 
 | ID | 任务 | 状态 | 测试 | 备注 |
 |----|------|------|------|------|
-| P2-1 | Hex 坐标系与几何 | ⬜ | hex_test | axial 坐标 |
-| P2-2 | Board 拓扑（顶点/边邻接） | ⬜ | board_topology_test | |
-| P2-3 | 基础版布局生成器 | ⬜ | board_gen_test | 19 格分布 |
-| P2-4 | 数字牌分布（含平衡约束） | ⬜ | number_token_test | 6/8 不相邻 |
-| P2-5 | 港口分布 | ⬜ | port_placement_test | |
-| P2-6 | 随机种子可复现 | ⬜ | seed_repro_test | |
+| P2-1 | Hex 坐标系与几何 | ✅ | hex_coord_test.gd (8/8) | axial 坐标 + 距离 + 像素转换 |
+| P2-2 | Board 拓扑（顶点/边邻接） | ✅ | board_test.gd (16/16) | 顶点/边归一化键 |
+| P2-3 | 基础版布局生成器 | ✅ | board_test.gd | 19 格分布 |
+| P2-4 | 数字牌分布（含平衡约束） | ✅ | board_test.gd | 6/8 不相邻 |
+| P2-5 | 港口分布 | ✅ | board_test.gd | 9 个港口 |
+| P2-6 | 随机种子可复现 | ✅ | board_test.gd | 种子复现 |
 
-**出口标准**：给定种子可生成确定性棋盘；拓扑查询全部正确。
+**出口标准**：给定种子可生成确定性棋盘；拓扑查询全部正确。✅ 达成
 
 ---
 
@@ -91,12 +91,12 @@
 
 | ID | 任务 | 状态 | 测试 | 备注 |
 |----|------|------|------|------|
-| P3-1 | Action 基类与子类骨架 | ⬜ | action_test | |
-| P3-2 | RulesEngine.validate 框架 | ⬜ | rules_validate_test | |
-| P3-3 | RulesEngine.apply + 事件产出 | ⬜ | rules_apply_test | 不可变 |
-| P3-4 | Event 类型定义 | ⬜ | event_test | |
+| P3-1 | Action 基类与子类骨架 | ✅ | action_test.gd (12/12) | 7 种 Action 类型 |
+| P3-2 | RulesEngine.validate 框架 | ✅ | rules_engine_test.gd | 通用校验 + 分发 |
+| P3-3 | RulesEngine.apply + 事件产出 | ✅ | rules_engine_test.gd | 不可变状态变更 |
+| P3-4 | Event 类型定义 | ✅ | event_test.gd (14/14) | 13 种事件 |
 
-**出口标准**：空动作可走完 validate→apply→event 链路。
+**出口标准**：空动作可走完 validate→apply→event 链路。✅ 达成
 
 ---
 
@@ -105,14 +105,14 @@
 
 | ID | 任务 | 状态 | 测试 | 备注 |
 |----|------|------|------|------|
-| P4-1 | 建造成本校验 | ⬜ | build_cost_test | 数据驱动 |
-| P4-2 | 道路建造校验（连接性） | ⬜ | road_build_test | |
-| P4-3 | 定居点建造校验（距离规则） | ⬜ | settlement_build_test | |
-| P4-4 | 城市升级校验 | ⬜ | city_upgrade_test | |
-| P4-5 | 掷骰产出逻辑 | ⬜ | roll_produce_test | 含强盗压制 |
-| P4-6 | 初始放置阶段逻辑 | ⬜ | setup_phase_test | 双轮 + 初始资源 |
+| P4-1 | 建造成本校验 | ✅ | rules_engine_test.gd | 数据驱动 |
+| P4-2 | 道路建造校验（连接性） | ✅ | rules_engine_test.gd | |
+| P4-3 | 定居点建造校验（距离规则） | ✅ | rules_engine_test.gd | |
+| P4-4 | 城市升级校验 | ✅ | rules_engine_test.gd | |
+| P4-5 | 掷骰产出逻辑 | ✅ | rules_engine_test.gd | 含强盗压制 |
+| P4-6 | 初始放置阶段逻辑 | ✅ | rules_engine_test.gd | 双轮 + 初始资源 |
 
-**出口标准**：基础版建造与产出规则测试全绿（对照 GAME_RULES §4-7）。
+**出口标准**：基础版建造与产出规则测试全绿（对照 GAME_RULES §4-7）。✅ 达成
 
 ---
 
@@ -121,10 +121,10 @@
 
 | ID | 任务 | 状态 | 测试 | 备注 |
 |----|------|------|------|------|
-| P5-1 | 银行 4:1 交易 | ⬜ | bank_trade_test | |
-| P5-2 | 港口 3:1 / 2:1 交易 | ⬜ | port_trade_test | 归属校验 |
-| P5-3 | 玩家间交易协议 | ⬜ | player_trade_test | 双方确认 |
-| P5-4 | 资源耗尽处理 | ⬜ | resource_depletion_test | |
+| P5-1 | 银行 4:1 交易 | ✅ | rules_engine_test.gd | |
+| P5-2 | 港口 3:1 / 2:1 交易 | ✅ | rules_engine_test.gd | 归属校验 |
+| P5-3 | 玩家间交易协议 | ✅ | rules_engine_test.gd | 双方确认 |
+| P5-4 | 资源耗尽处理 | ✅ | rules_engine_test.gd | |
 
 ---
 
@@ -133,13 +133,13 @@
 
 | ID | 任务 | 状态 | 测试 | 备注 |
 |----|------|------|------|------|
-| P6-1 | 发展卡购买与抽牌堆 | ⬜ | dev_card_draw_test | |
-| P6-2 | 当回合不可用规则 | ⬜ | dev_card_timing_test | |
-| P6-3 | 骑士卡 | ⬜ | knight_card_test | |
-| P6-4 | 胜利点卡（隐藏） | ⬜ | victory_point_card_test | |
-| P6-5 | 道路建设卡 | ⬜ | road_building_card_test | |
-| P6-6 | 发明卡 | ⬜ | year_of_plenty_test | |
-| P6-7 | 垄断卡 | ⬜ | monopoly_card_test | |
+| P6-1 | 发展卡购买与抽牌堆 | ✅ | rules_engine_test.gd | |
+| P6-2 | 当回合不可用规则 | ✅ | rules_engine_test.gd | dev_cards_bought_this_turn |
+| P6-3 | 骑士卡 | ✅ | rules_engine_test.gd | 触发强盗 |
+| P6-4 | 胜利点卡（隐藏） | ✅ | rules_engine_test.gd | |
+| P6-5 | 道路建设卡 | ✅ | rules_engine_test.gd | |
+| P6-6 | 发明卡 | ✅ | rules_engine_test.gd | year_of_plenty |
+| P6-7 | 垄断卡 | ✅ | rules_engine_test.gd | monopoly |
 
 ---
 
@@ -148,14 +148,14 @@
 
 | ID | 任务 | 状态 | 测试 | 备注 |
 |----|------|------|------|------|
-| P7-1 | 7 点强盗触发 | ⬜ | robber_trigger_test | |
-| P7-2 | 手牌弃半 | ⬜ | discard_half_test | 奇数向下 |
-| P7-3 | 强盗移动与偷取 | ⬜ | robber_move_test | |
-| P7-4 | 最长道路计算（含断链） | ⬜ | longest_road_test | |
-| P7-5 | 最大军队计算 | ⬜ | largest_army_test | |
-| P7-6 | 胜利条件判定 | ⬜ | victory_test | 10 点 + 隐藏 |
+| P7-1 | 7 点强盗触发 | ✅ | rules_engine_test.gd | |
+| P7-2 | 手牌弃半 | ✅ | rules_engine_test.gd | 奇数向下 |
+| P7-3 | 强盗移动与偷取 | ✅ | rules_engine_test.gd | |
+| P7-4 | 最长道路计算（含断链） | ✅ | rules_engine_test.gd | DFS + 对手定居点断链 |
+| P7-5 | 最大军队计算 | ✅ | rules_engine_test.gd | |
+| P7-6 | 胜利条件判定 | ✅ | rules_engine_test.gd | 10 点 + 隐藏 |
 
-**出口标准**：基础版规则引擎完整，可模拟整局（无 UI）。
+**出口标准**：基础版规则引擎完整，可模拟整局（无 UI）。✅ 达成
 
 ---
 
@@ -164,12 +164,12 @@
 
 | ID | 任务 | 状态 | 测试 | 备注 |
 |----|------|------|------|------|
-| P8-1 | TurnFSM 状态转移 | ⬜ | turn_fsm_test | |
-| P8-2 | GameSession 动作提交 | ⬜ | game_session_test | |
-| P8-3 | EventBus 订阅分发 | ⬜ | event_bus_test | |
-| P8-4 | 完整对局模拟（无 UI） | ⬜ | e2e_simulated_game_test | 端到端 |
+| P8-1 | TurnFSM 状态转移 | ✅ | turn_fsm_test.gd (15/15) | 8 个状态 + 允许动作 |
+| P8-2 | GameSession 动作提交 | ✅ | game_session_test.gd (14/14) | 持有 GameState + 历史记录 |
+| P8-3 | EventBus 订阅分发 | ✅ | event_bus_test.gd (10/10) | 订阅/全局/取消/计数 |
+| P8-4 | 完整对局模拟（无 UI） | ✅ | e2e_simulated_game_test.gd (1/1) | 端到端 AI 对局 |
 
-**出口标准**：可在无渲染下跑完一局模拟对局并判定胜利。
+**出口标准**：可在无渲染下跑完一局模拟对局并判定胜利。✅ 达成
 
 ---
 
@@ -279,6 +279,8 @@
 | 2026-06-24 | refactor | 文件按游戏开发标准模式分门别类（assets/scenes/data/scripts 细分） | 目录结构 |
 | 2026-06-24 | feat | P1 完成：核心数据模型（Result/ResType/ResourceSet/PlayerState/GameState + 4 数据对象 + 4 JSON） | P1 |
 | 2026-06-24 | adr | ADR-007：资源类型类命名为 ResType 而非 ResourceType，避免与 Godot 内置枚举冲突 | 命名 |
+| 2026-06-25 | feat | P2-P7 完成：棋盘拓扑/生成 + 规则引擎（动作/建造/交易/发展卡/强盗/成就） | P2-P7 |
+| 2026-06-25 | feat | P8 完成：应用层（TurnFSM/GameSession/EventBus + 端到端模拟对局） | P8 |
 
 ## 5. 阻塞与风险登记
 
@@ -349,3 +351,42 @@
 - 决策记录：ADR-007（ResType 命名避开 Godot 内置 ResourceType 冲突）
 - 遗留问题：无
 - 下次建议：进入 P2 棋盘拓扑与生成，从 P2-1 Hex 坐标系开始
+
+---
+
+## 会话 2026-06-25
+- 范围：P2-1 ~ P8-4
+- 完成任务：P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 ✅, P8 ✅
+- 新增测试：
+  - `project/tests/unit/core/hex_coord_test.gd`（8 测试）
+  - `project/tests/unit/core/board_test.gd`（16 测试）
+  - `project/tests/unit/core/action_test.gd`（12 测试）
+  - `project/tests/unit/core/event_test.gd`（14 测试）
+  - `project/tests/unit/core/rules_engine_test.gd`（约 50 测试，覆盖 P3-P7 全部规则）
+  - `project/tests/unit/core/test_helper.gd`（测试辅助）
+  - `project/tests/unit/app/turn_fsm_test.gd`（15 测试）
+  - `project/tests/unit/app/event_bus_test.gd`（10 测试）
+  - `project/tests/unit/app/game_session_test.gd`（14 测试）
+  - `project/tests/integration/e2e_simulated_game_test.gd`（端到端模拟对局）
+- 新增源码：
+  - `project/src/core/hex_coord.gd`（六边形轴向坐标）
+  - `project/src/core/board.gd`（棋盘拓扑 + 顶点/边归一化）
+  - `project/src/core/board_generator.gd`（棋盘生成 + 种子复现）
+  - `project/src/core/placement.gd`（建筑放置记录）
+  - `project/src/core/event.gd`（13 种事件）
+  - `project/src/core/actions/*.gd`（8 个 Action 文件）
+  - `project/src/core/rules_engine.gd`（规则引擎核心：validate/apply + 所有规则）
+  - `project/src/app/turn_fsm.gd`（回合状态机：8 个状态）
+  - `project/src/app/event_bus.gd`（事件订阅/分发）
+  - `project/src/app/game_session.gd`（会话管理：持有 GameState + EventBus）
+- 测试结果：270 测试 / 643 断言全绿，退出码 0
+- 关键设计：
+  - 不可变状态变更（RulesEngine.apply 内部 clone）
+  - 命令模式（Action 对象表达所有状态变更）
+  - 事件驱动（RulesEngine 产出 Event 列表，EventBus 分发）
+  - Placement 键前缀 `v:{id}` / `e:{id}` 避免顶点/边 ID 冲突
+  - 顶点归一化用整数物理坐标 `(2q+r+dx, 3r+dy)` 避免浮点误差
+  - SETUP 阶段双轮放置（正向 0→N-1，反向 N-1→0）
+  - 最长道路 DFS（对手定居点/城市插入则断链）
+- 遗留问题：无
+- 下次建议：进入 P9 表现层，从 P9-1 BoardView 渲染开始
