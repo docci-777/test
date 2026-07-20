@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Crimson Text', Georgia, serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0f2438;
+  color: #2b1810;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* 羊皮纸背景纹理 */
+.parchment-bg {
+  background-color: #f0e2c1;
+  background-image:
+    radial-gradient(at 20% 10%, rgba(255, 240, 200, 0.4) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(220, 180, 120, 0.35) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, rgba(200, 150, 90, 0.3) 0px, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(180, 130, 70, 0.4) 0px, transparent 50%),
+    repeating-linear-gradient(0deg, rgba(43, 24, 16, 0.025) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(43, 24, 16, 0.025) 0 1px, transparent 1px 3px);
+}
+
+.ocean-bg {
+  background-color: #1e3a5f;
+  background-image:
+    radial-gradient(at 20% 20%, rgba(60, 100, 140, 0.4) 0px, transparent 60%),
+    radial-gradient(at 80% 0%, rgba(30, 60, 100, 0.5) 0px, transparent 60%),
+    radial-gradient(at 0% 100%, rgba(20, 40, 80, 0.6) 0px, transparent 60%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0 2px, transparent 2px 4px);
+}
+
+/* 墨水描边按钮 */
+.ink-button {
+  position: relative;
+  background-color: #f0e2c1;
+  color: #2b1810;
+  border: 2px solid #2b1810;
+  box-shadow: 0 4px 0 0 #1f1109, 0 6px 12px rgba(43, 24, 16, 0.4);
+  transition:
+    transform 0.12s ease-out,
+    box-shadow 0.12s ease-out,
+    background-color 0.15s;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.04em;
+}
+
+.ink-button:hover:not(:disabled) {
+  background-color: #faf2dc;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 0 #1f1109, 0 8px 16px rgba(43, 24, 16, 0.5);
+}
+
+.ink-button:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 0 #1f1109, 0 2px 4px rgba(43, 24, 16, 0.4);
+}
+
+.ink-button:disabled {
+  background-color: #d4c4a0;
+  color: #8a7b5a;
+  cursor: not-allowed;
+  box-shadow: 0 2px 0 0 #1f1109, 0 3px 6px rgba(43, 24, 16, 0.3);
+  opacity: 0.7;
+}
+
+.ink-button--primary {
+  background-color: #c4421f;
+  color: #faf2dc;
+  border-color: #2b1810;
+}
+
+.ink-button--primary:hover:not(:disabled) {
+  background-color: #d65830;
+}
+
+.ink-button--primary:disabled {
+  background-color: #8a3a20;
+  color: #d4c4a0;
+}
+
+/* 卡片样式 */
+.parchment-card {
+  background-color: #f0e2c1;
+  background-image:
+    radial-gradient(at 20% 10%, rgba(255, 240, 200, 0.5) 0px, transparent 50%),
+    radial-gradient(at 80% 90%, rgba(180, 130, 70, 0.3) 0px, transparent 50%);
+  border: 1px solid #634a26;
+  box-shadow:
+    0 4px 18px rgba(43, 24, 16, 0.35),
+    inset 0 0 60px rgba(110, 76, 36, 0.15);
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(43, 24, 16, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(43, 24, 16, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(43, 24, 16, 0.7);
+}
+
+/* 数字牌红色字体（6/8） */
+.token-red {
+  color: #c4421f;
+}
+
+/* 六边形选中外发光 */
+.hex-selectable {
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.hex-selectable:hover {
+  filter: drop-shadow(0 0 6px rgba(230, 184, 64, 0.9)) brightness(1.1);
+}
+
+.vertex-slot:hover,
+.edge-slot:hover {
+  filter: drop-shadow(0 0 4px rgba(230, 184, 64, 0.8));
+  cursor: pointer;
+}
+
+/* 骰子 3D */
+.dice-3d {
+  width: 48px;
+  height: 48px;
+  background-color: #faf2dc;
+  border: 2px solid #2b1810;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  padding: 6px;
+  gap: 2px;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 -3px 0 rgba(43, 24, 16, 0.2);
+}
+
+.dice-pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2b1810;
+  align-self: center;
+  justify-self: center;
+}
+
+/* 棋盘 SVG 文本不可选中 */
+.board-svg {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* 模态遮罩 */
+.modal-backdrop {
+  background-color: rgba(15, 36, 56, 0.75);
+  backdrop-filter: blur(3px);
+}
+
+/* 标签徽章 */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.06em;
+  border: 1px solid currentColor;
+}
+
+/* 让六边形顶点点击区域更大 */
+svg .hit-area {
+  fill: transparent;
+  cursor: pointer;
+}
