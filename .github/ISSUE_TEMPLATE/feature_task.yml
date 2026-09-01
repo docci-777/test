@@ -1,0 +1,57 @@
+name: Feature task
+description: 可交给执行模型的原子化功能任务
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: 请将任务控制为单一、可独立验收的改动。
+  - type: textarea
+    id: goal
+    attributes:
+      label: 目标
+      description: 用一两句话描述完成后的可观察结果。
+    validations:
+      required: true
+  - type: textarea
+    id: interfaces
+    attributes:
+      label: 输入、输出与接口
+      description: 给出类型、函数或命令接口；未知时标记为待规划，不能交给执行模型。
+    validations:
+      required: true
+  - type: textarea
+    id: allowed
+    attributes:
+      label: 允许修改
+      description: 列出允许修改的目录或文件。
+    validations:
+      required: true
+  - type: textarea
+    id: forbidden
+    attributes:
+      label: 禁止修改
+      description: 列出不可改变的接口、模块和范围。
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收标准
+      description: 使用可勾选、可测试的条目。
+      placeholder: "- [ ] Given/When/Then..."
+    validations:
+      required: true
+  - type: textarea
+    id: edge-cases
+    attributes:
+      label: 正常、非法与边界场景
+      description: 至少列出一个正常、一个非法和一个边界场景。
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 依赖与阻塞项
+      description: 关联 Issue 或填写“无”。
+    validations:
+      required: true

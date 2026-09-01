@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repository-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify required project contracts
+        shell: bash
+        run: |
+          required=(
+            README.md
+            AGENTS.md
+            CONTRIBUTING.md
+            docs/PRODUCT.md
+            docs/GAME_RULES.md
+            docs/ARCHITECTURE.md
+            docs/ROADMAP.md
+          )
+          for path in "${required[@]}"; do
+            test -s "$path" || { echo "Missing or empty: $path"; exit 1; }
+          done
+
+  project-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Detect application scaffold
+        id: scaffold
+        shell: bash
+        run: |
+          if test -f package-lock.json; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "package-lock.json not present; project checks are not enabled yet."
+          fi
+      - uses: actions/setup-node@v7
+        if: steps.scaffold.outputs.enabled == 'true'
+        with:
+          node-version: 24
+          cache: npm
+      - if: steps.scaffold.outputs.enabled == 'true'
+        run: npm ci
+      - if: steps.scaffold.outputs.enabled == 'true'
+        run: npm run check
