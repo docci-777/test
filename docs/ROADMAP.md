@@ -1,13 +1,15 @@
 # Roadmap
 
+> 本文件只记录里程碑方向。Issue、PR、依赖和实时状态以 [多模型协作控制中心](TASK_DISPATCH.md) 为准。
+
 ## M0：工程与协作基线
 
 - [x] 产品、规则和架构文档
 - [x] Agent 协作协议
 - [x] Issue 与 Pull Request 模板
 - [x] 初始 CI 仓库契约检查
-- [ ] TypeScript/Vite/Vitest 脚手架
-- [ ] `main` 分支保护与必要检查
+- [ ] TypeScript/Vite/Vitest 脚手架（PR #11 已审查通过，等待合并）
+- [ ] `main` 分支保护与必要检查（Issue #10 已暂缓，不计为完成）
 
 退出条件：第一个功能 Issue 可以由执行模型在不猜测架构的前提下开始开发。
 
@@ -53,4 +55,3 @@
 - 观战与对局分析
 
 这些内容不属于首版承诺，必须重新规划后才能启动。
-
