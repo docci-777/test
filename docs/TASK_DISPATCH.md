@@ -21,8 +21,8 @@
 - `main`：已包含产品、规则、架构、协作规范、Issue/PR 模板、初始 CI 和本协作控制中心；尚未包含应用脚手架或玩法代码。
 - M0：4 项完成；Issue #2 的 PR #11 已通过高阶模型结构化审查和 CI，等待 squash merge；Issue #10 已关闭但明确暂缓，不能记为完成。
 - M1：Issue #3–#9 均未开始，全部直接或间接依赖 #2。
-- 当前开放 PR：#11，head `0e84cb7eeba2d13740167752b6180b710f1978bd`。
-- 当前下一动作：仓库所有者确认 PR #11 head 未变化后 squash merge；随后由高阶模型更新本文件并把 #3 改为 `READY`。
+- 当前开放 PR：#11。已审查 head 以 PR 中最新一条结构化高阶审查记录为准，不在本文件复制 SHA。
+- 当前下一动作：确认 PR #11 最新 head 的 CI 成功且存在对应的“通过”审查记录后 squash merge；随后由高阶模型更新本文件并把 #3 改为 `READY`。
 - 外部的新 PR 监控任务仅负责通知，不是合并门禁，也不代替本文件或 PR 中的审查记录。
 
 ## 文档职责地图
@@ -58,7 +58,7 @@
 
 | 波次 | Issue / PR | 任务 | 状态 | 解锁条件 | 唯一建议分支 |
 | --- | --- | --- | --- | --- | --- |
-| 0 | #2 / PR #11 | TypeScript 应用与质量工具链脚手架 | `APPROVED` | 确认已审查 head 未变化后合并 | `chore/issue-2-project-scaffold` |
+| 0 | #2 / PR #11 | TypeScript 应用与质量工具链脚手架 | `APPROVED` | 最新 head 的 CI 与结构化审查均通过后合并 | `chore/issue-2-project-scaffold` |
 | 1 | #3 | 核心领域 ID、规则错误与结果类型 | `BLOCKED` | #2 合并 | `feat/issue-3-core-domain-types` |
 | 2A | #4 | 标准六角棋盘拓扑 | `BLOCKED` | #3 合并 | `feat/issue-4-board-topology` |
 | 2B | #5 | 可注入、可设 seed 的随机源 | `BLOCKED` | #2、#3 合并 | `feat/issue-5-seeded-random` |
@@ -178,4 +178,4 @@ PR 必须包含：实现内容、明确未实现内容、修改文件、验收�
 ## 本次维护记录
 
 - 2026-09-01：将本文件升级为唯一动态协作入口；统一执行、审查、进度和文档维护协议。
-- 2026-09-01：记录 PR #11 在 head `0e84cb7eeba2d13740167752b6180b710f1978bd` 的复审与 CI 已通过、等待合并；记录 #10 为 `DEFERRED`。
+- 2026-09-01：记录 PR #11 已完成复审与 CI、等待最终基线同步；具体已审查 head 只记录在 PR，避免主文档提交使 SHA 自身过期。记录 #10 为 `DEFERRED`。
