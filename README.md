@@ -24,6 +24,16 @@
 
 规则引擎不依赖 UI、网络、系统时钟或隐式随机数。所有随机行为必须通过可注入、可设 seed 的随机源完成。
 
+## 本地开发
+
+要求 Node.js 24 LTS。
+
+```bash
+npm ci        # 按 lockfile 安装依赖
+npm run dev   # 启动开发服务器
+npm run check # 串行执行 lint、typecheck、test、build
+```
+
 ## 协作入口
 
 - 产品边界：[docs/PRODUCT.md](docs/PRODUCT.md)
