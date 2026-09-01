@@ -2,7 +2,7 @@
 
 一个以六角格资源交易桌游为灵感的独立实现，用于验证“高阶模型规划/审查、执行模型按 Issue 编码”的协作流程。
 
-> 当前状态：M0（工程与协作基线）。尚未开始玩法实现。
+> 当前状态：M0（工程与协作基线）。脚手架 PR #11 已通过审查和 CI，等待合并；实时状态以 [多模型协作控制中心](docs/TASK_DISPATCH.md) 为准。
 
 ## 首版目标
 
@@ -36,6 +36,7 @@ npm run check # 串行执行 lint、typecheck、test、build
 
 ## 协作入口
 
+- 唯一动态入口：[docs/TASK_DISPATCH.md](docs/TASK_DISPATCH.md)
 - 产品边界：[docs/PRODUCT.md](docs/PRODUCT.md)
 - 规则契约：[docs/GAME_RULES.md](docs/GAME_RULES.md)
 - 架构约束：[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
@@ -43,7 +44,8 @@ npm run check # 串行执行 lint、typecheck、test、build
 - 模型工作规则：[AGENTS.md](AGENTS.md)
 - 贡献流程：[CONTRIBUTING.md](CONTRIBUTING.md)
 
+任务派发和 PR 审查时，只需让对应模型先阅读 `docs/TASK_DISPATCH.md` 中的角色协议。
+
 ## 知识产权说明
 
 本项目是独立学习与工程实践项目，不隶属于、也不代表任何商业桌游品牌。
-
