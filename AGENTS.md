@@ -1,14 +1,16 @@
 # Agent Working Agreement
 
-本文件对所有参与仓库工作的模型与自动化代理生效，定义稳定且长期有效的底线。动态任务状态、执行流程、审查流程分别维护在专用文档中。
+本文件对所有参与仓库工作的模型与自动化代理生效，定义稳定且长期有效的底线。**所有动态工作选择统一从 `docs/CHECKLIST.md` 开始。**
 
 ## 统一入口
 
-- 执行任务：先阅读 `docs/EXECUTOR_GUIDE.md`。
-- 审查 PR：先阅读 `docs/REVIEW_GUIDE.md`。
-- 当前实时状态：读取 `docs/STATUS.md`。
-- 文档职责或状态更新：读取 `docs/DOC_MAINTENANCE.md`。
-- 文档出现冲突时立即停止并报告，不得自行解释或补全关键决策。
+任何高阶或低阶模型收到任务时，第一步都是：
+
+> **根据 `docs/CHECKLIST.md` 执行。**
+
+模型必须自行核对 GitHub、识别自己的 `L / H / O` 角色、选择清单中最靠前且可执行的条目，并自动确定对应 Issue、PR、分支和需要读取的领域文档。不得要求用户重复指定 Issue 或 PR 编号。
+
+文档出现冲突时立即停止依赖该冲突事实的关键决策，并按 `docs/DOC_MAINTENANCE.md` 与 GitHub 实际状态核实。
 
 ## 修改范围
 
@@ -42,14 +44,15 @@
 
 PR 描述必须使用仓库模板，列出实现/未实现内容、修改文件、验收标准证据、实际命令结果和风险。CI 通过不等于允许合并。
 
+- 低阶执行模型只处理清单自动选择的 `READY / IN_PROGRESS / CHANGES_REQUESTED` 工作，不自行解锁任务。
 - 执行模型只修复明确审查意见，不得借机扩大范围。
 - 高阶模型先列 findings，再给出 `通过 / 需修改 / 阻塞` 的唯一结论。
 - PR head 变化后旧审查失效，必须复审当前 head。
-- 除非仓库所有者明确要求，模型不得自动合并。
+- 除非仓库所有者明确要求，模型不得自动执行清单中的 `O` 门禁动作。
 
 ## 协作文档维护
 
-- `docs/STATUS.md` 由仓库所有者或高阶模型维护实时状态。
-- `docs/EXECUTOR_GUIDE.md`、`docs/REVIEW_GUIDE.md` 和 `docs/DOC_MAINTENANCE.md` 由仓库所有者或高阶模型维护流程规则。
-- 低阶执行模型不得修改动态状态或协作规则，除非 Issue 明确授权。
-- 任何新增协作文档前先检查 `docs/DOC_MAINTENANCE.md` 的职责地图，避免重复。
+- `docs/CHECKLIST.md` 是唯一动态协作事实来源，由仓库所有者或高阶模型维护。
+- `docs/EXECUTOR_GUIDE.md`、`docs/REVIEW_GUIDE.md` 和 `docs/DOC_MAINTENANCE.md` 只保存稳定细则。
+- `docs/STATUS.md` 与 `docs/TASK_DISPATCH.md` 仅是兼容跳转。
+- 低阶执行模型不得修改动态清单或协作规则，除非 Issue 明确授权。
