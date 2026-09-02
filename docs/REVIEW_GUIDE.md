@@ -1,12 +1,21 @@
 # High-tier Review Guide
 
-> 面向高阶审查模型。审查时，仓库所有者只需说：
+> 本文件是高阶审查细则，不再是审查派发入口。统一入口为 `docs/CHECKLIST.md`。
 >
-> **阅读 `docs/REVIEW_GUIDE.md`，开始审查 PR #N。**
+> 用户只需说：**根据 `docs/CHECKLIST.md` 执行。**
+
+## 如何确定要审查哪个 PR
+
+高阶模型不得要求用户提供 PR 编号。先读取 `docs/CHECKLIST.md` 并核对 GitHub：
+
+1. 优先选择最高优先级、当前 head 已稳定且 CI 可核对的 `IN_REVIEW` PR。
+2. 若任务是 `CHANGES_REQUESTED`，只核对修改要求是否清楚，不代替低阶模型修代码。
+3. 若没有待审 PR，按清单执行合并后解锁、Issue 契约完善或下一批规划工作。
+4. 目标 Issue、PR 和相关资料由清单及 GitHub 自动确定。
 
 ## 审查前必须读取
 
-1. `docs/STATUS.md`：确认 PR 对应 Issue、依赖、当前状态和下一步。
+1. `docs/CHECKLIST.md`：确认自动选择出的 PR、依赖、当前阶段与完成判据。
 2. 目标 Issue 全文及评论。
 3. `AGENTS.md`。
 4. 按改动领域读取 `docs/GAME_RULES.md`、`docs/ARCHITECTURE.md`、相关 ADR 与 `docs/PRODUCT.md`。
@@ -64,12 +73,12 @@
 - 必须比较“上次已审查 head → 当前 head”的增量，并重新核对当前 head 的 CI、线程与验收证据。
 - 只有当前 head 存在结构化“通过”结论且 CI 成功，才能把任务状态改为 `APPROVED`。
 
-## 审查后的状态维护
+## 审查后的清单维护
 
-审查完成后，按 `docs/DOC_MAINTENANCE.md` 更新 `docs/STATUS.md`：
+审查完成后，按 `docs/DOC_MAINTENANCE.md` 更新 `docs/CHECKLIST.md`：
 
-- 有阻塞/重要问题：`CHANGES_REQUESTED` 或必要时 `BLOCKED`。
+- 有阻塞/重要问题：任务为 `CHANGES_REQUESTED` 或必要时 `BLOCKED`。
 - 当前 head 通过且 CI 成功：`APPROVED`。
-- 合并后：`DONE`，并重新计算下游 Issue 是否可变为 `READY`。
+- 合并后：`DONE`，并重新计算下游任务是否可变为 `READY`。
 
 若审查身份与 PR 作者相同，GitHub 可能不能形成正式 Approval；仍应以 Review Comment 或 PR Conversation 留下完整结构化结论，并注明不是独立账号批准。
