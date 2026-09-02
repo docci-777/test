@@ -4,9 +4,9 @@ Closes #
 
 ## 协作依据
 
+- [ ] 任务由 `docs/CHECKLIST.md` 自动选择，当前状态允许低阶执行
 - [ ] 已阅读 `docs/EXECUTOR_GUIDE.md`
-- [ ] 已确认 `docs/STATUS.md` 中任务状态允许执行
-- [ ] 已阅读 Issue 全文、评论、`AGENTS.md` 和相关规则/架构文档
+- [ ] 已阅读目标 Issue 全文、评论、`AGENTS.md` 和相关规则/架构文档
 
 ## 实现内容
 
@@ -35,8 +35,8 @@ Closes #
 ## 协作文档影响
 
 - [ ] 不需要修改规则、架构或产品文档
-- [ ] 合并后需要高阶模型按 `docs/DOC_MAINTENANCE.md` 更新 `docs/STATUS.md`
-- [ ] 涉及规则/架构变化，已获得授权并关联对应 ADR 或决策
+- [ ] 合并后由高阶模型根据 GitHub 实际状态更新 `docs/CHECKLIST.md`
+- [ ] 涉及规则/架构变化时，已获得授权并关联对应 ADR 或决策
 
 ## 风险、假设与后续事项
 
