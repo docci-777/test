@@ -1,10 +1,15 @@
 # Contribution Workflow
 
-实时任务状态以 `docs/STATUS.md` 为准；低阶执行协议见 `docs/EXECUTOR_GUIDE.md`，高阶审查协议见 `docs/REVIEW_GUIDE.md`。本文件只定义稳定的分支与 PR 通用流程。
+动态任务选择、状态、依赖和下一步统一以 `docs/CHECKLIST.md` 为准。本文件只定义稳定的分支与 PR 通用流程。
 
 ## 开始条件
 
-只有 `docs/STATUS.md` 中标记为 `READY` 的 Issue 才能首次派发。`IN_PROGRESS` 或 `CHANGES_REQUESTED` 的任务只能由原负责人继续。
+执行模型先根据 `docs/CHECKLIST.md` 自动选择任务，不需要用户提供 Issue 编号。
+
+- `READY`：可以首次开始。
+- `IN_PROGRESS`：仅原负责人继续。
+- `CHANGES_REQUESTED`：仅原负责人在原分支、原 PR 修订。
+- 其他状态不得开始编码。
 
 ## 分支命名
 
@@ -14,19 +19,19 @@
 - `docs/issue-<number>-<slug>`
 - `chore/issue-<number>-<slug>`
 
-禁止从旧任务分支、历史 `trae/*` 分支或其他未合并分支开始新任务。
+具体分支优先使用 `docs/CHECKLIST.md` 中目标任务记录的建议分支。禁止从旧任务分支、历史 `trae/*` 分支或其他未合并分支开始新任务。
 
 ## 标准流程
 
-1. 高阶模型确认 Issue 契约完整、依赖已合并，并在 `docs/STATUS.md` 标记 `READY`。
-2. 指定唯一执行模型；执行模型从最新 `main` 创建独立分支。
-3. 执行模型严格按 Issue 允许范围实现、测试并运行质量命令。
-4. 创建关联 `Closes #N` 的 Pull Request，完整填写 PR 模板。
-5. 等待 CI 与高阶模型按 `docs/REVIEW_GUIDE.md` 结构化审查。
+1. 高阶模型依据 GitHub 实际状态确认依赖和 Issue 契约，并在 `docs/CHECKLIST.md` 将任务置为 `READY`。
+2. 低阶模型收到“根据清单执行”后自动选取最高优先级可执行项，从最新 `main` 创建独立分支；若为 `CHANGES_REQUESTED` 则继续原分支。
+3. 严格按 Issue 允许范围实现、测试并运行质量命令。
+4. 创建关联目标 Issue 的唯一 Pull Request，完整填写 PR 模板。
+5. 高阶模型收到同样的“根据清单执行”指令后，自动选择最高优先级待审 PR 并结构化审查。
 6. 若需修改，仅原负责人在原分支和原 PR 修复明确意见。
-7. 当前 head 通过审查且 CI 成功后，由高阶模型更新 `docs/STATUS.md` 为 `APPROVED`。
+7. 当前 head 通过审查且 CI 成功后，高阶模型在清单中置为 `APPROVED`。
 8. 通过后由仓库所有者或其明确授权者 squash merge，并删除任务分支。
-9. 合并后高阶模型将任务标记为 `DONE`，并重新计算下游任务是否可变为 `READY`。
+9. 合并后高阶模型按 GitHub 事实将任务标记为 `DONE`，重算依赖并自动解锁下一任务。
 
 ## Issue 就绪条件
 
@@ -45,9 +50,9 @@
 
 ## 文档更新
 
+- `docs/CHECKLIST.md` 保存当前状态、执行顺序、依赖和完成清单；由高阶模型根据 GitHub 实际变化维护。
 - Issue 保存单任务契约；不要把逐任务细节复制到 README 或 ROADMAP。
-- `docs/STATUS.md` 保存当前状态和依赖；由高阶模型在 GitHub 状态变化后更新。
-- README 只提供入口；ROADMAP 只维护里程碑方向。
+- README 只提供统一协作入口；ROADMAP 只维护里程碑方向。
 - 规则变化更新 `docs/GAME_RULES.md`；架构变化通过 ADR 并同步 `docs/ARCHITECTURE.md`。
 - 协作文档职责和冲突处理按 `docs/DOC_MAINTENANCE.md` 执行。
-- 低阶执行模型不得在未授权时修改动态状态或协作规则。
+- 低阶执行模型不得在未授权时修改动态清单或协作规则。
