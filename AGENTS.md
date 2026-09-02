@@ -1,12 +1,13 @@
 # Agent Working Agreement
 
-本文件对所有参与仓库工作的模型与自动化代理生效。动态任务状态、派发顺序和审查流程只维护在 `docs/TASK_DISPATCH.md`。
+本文件对所有参与仓库工作的模型与自动化代理生效，定义稳定且长期有效的底线。动态任务状态、执行流程、审查流程分别维护在专用文档中。
 
 ## 统一入口
 
-- 执行任务：先阅读 `docs/TASK_DISPATCH.md` 的“执行模型协议”，再阅读目标 Issue。
-- 审查 PR：先阅读 `docs/TASK_DISPATCH.md` 的“高阶模型审查协议”，再阅读目标 Issue 和完整 PR。
-- 状态不是 `READY` 或本人负责的 `IN_PROGRESS` 时，执行模型不得开始编码。
+- 执行任务：先阅读 `docs/EXECUTOR_GUIDE.md`。
+- 审查 PR：先阅读 `docs/REVIEW_GUIDE.md`。
+- 当前实时状态：读取 `docs/STATUS.md`。
+- 文档职责或状态更新：读取 `docs/DOC_MAINTENANCE.md`。
 - 文档出现冲突时立即停止并报告，不得自行解释或补全关键决策。
 
 ## 修改范围
@@ -43,9 +44,12 @@ PR 描述必须使用仓库模板，列出实现/未实现内容、修改文件�
 
 - 执行模型只修复明确审查意见，不得借机扩大范围。
 - 高阶模型先列 findings，再给出 `通过 / 需修改 / 阻塞` 的唯一结论。
-- PR head 变化后必须复审。
+- PR head 变化后旧审查失效，必须复审当前 head。
 - 除非仓库所有者明确要求，模型不得自动合并。
 
 ## 协作文档维护
 
-`docs/TASK_DISPATCH.md` 由仓库所有者或高阶模型维护。低阶执行模型不得修改动态状态，除非 Issue 明确授权。任何新增协作文档前先检查该文件的职责地图，避免重复。
+- `docs/STATUS.md` 由仓库所有者或高阶模型维护实时状态。
+- `docs/EXECUTOR_GUIDE.md`、`docs/REVIEW_GUIDE.md` 和 `docs/DOC_MAINTENANCE.md` 由仓库所有者或高阶模型维护流程规则。
+- 低阶执行模型不得修改动态状态或协作规则，除非 Issue 明确授权。
+- 任何新增协作文档前先检查 `docs/DOC_MAINTENANCE.md` 的职责地图，避免重复。
