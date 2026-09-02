@@ -4,8 +4,8 @@ Closes #
 
 ## 协作依据
 
-- [ ] 已阅读 `docs/TASK_DISPATCH.md` 的执行模型协议
-- [ ] 任务在派发时为 `READY` 或由本人负责的 `IN_PROGRESS`
+- [ ] 已阅读 `docs/EXECUTOR_GUIDE.md`
+- [ ] 已确认 `docs/STATUS.md` 中任务状态允许执行
 - [ ] 已阅读 Issue 全文、评论、`AGENTS.md` 和相关规则/架构文档
 
 ## 实现内容
@@ -34,8 +34,8 @@ Closes #
 
 ## 协作文档影响
 
-- [ ] 无动态状态以外的文档变化
-- [ ] 需要高阶模型在合并后更新 `docs/TASK_DISPATCH.md`
+- [ ] 不需要修改规则、架构或产品文档
+- [ ] 合并后需要高阶模型按 `docs/DOC_MAINTENANCE.md` 更新 `docs/STATUS.md`
 - [ ] 涉及规则/架构变化，已获得授权并关联对应 ADR 或决策
 
 ## 风险、假设与后续事项
