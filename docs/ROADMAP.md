@@ -1,6 +1,6 @@
 # Roadmap
 
-> 本文件只记录里程碑方向。Issue、PR、依赖和实时状态以 [docs/STATUS.md](STATUS.md) 为准。
+> 本文件只记录里程碑方向。实时任务、Issue / PR、依赖、执行顺序和完成状态以 [docs/CHECKLIST.md](CHECKLIST.md) 为准。
 
 ## M0：工程与协作基线
 
@@ -9,9 +9,9 @@
 - Issue 与 Pull Request 模板
 - 初始 CI 仓库契约检查
 - TypeScript/Vite/Vitest 脚手架
-- `main` 分支保护与必要检查（当前是否启用以 `docs/STATUS.md` 为准）
+- `main` 分支保护与必要检查（是否启用及是否暂缓以 `docs/CHECKLIST.md` 为准）
 
-退出条件：第一个功能 Issue 可以由执行模型在不猜测架构的前提下开始开发。
+退出条件：第一个功能任务可以由执行模型在不猜测架构的前提下从最新 `main` 开始开发。
 
 ## M1：确定性规则引擎
 
@@ -54,4 +54,4 @@
 - 联网多人
 - 观战与对局分析
 
-这些内容不属于首版承诺，必须重新规划后才能启动。
+这些内容不属于首版承诺，必须由高阶模型按 `docs/CHECKLIST.md` 重新规划后才能启动。
