@@ -1,8 +1,8 @@
 # Hex Settlers
 
-一个以六角格资源交易桌游为灵感的独立实现，用于验证“高阶模型规划/审查、执行模型按 Issue 编码”的协作流程。
+一个以六角格资源交易桌游为灵感的独立实现，用于验证“高阶模型规划/审查、低阶模型按任务契约执行”的协作流程。
 
-> 当前阶段与实时任务状态请查看 [docs/STATUS.md](docs/STATUS.md)。
+> **统一协作入口：[docs/CHECKLIST.md](docs/CHECKLIST.md)**
 
 ## 首版目标
 
@@ -24,23 +24,22 @@
 
 规则引擎不依赖 UI、网络、系统时钟或隐式随机数。所有随机行为必须通过可注入、可设 seed 的随机源完成。
 
-## 协作入口
+## 协作方式
 
-- 总入口：[docs/TASK_DISPATCH.md](docs/TASK_DISPATCH.md)
-- 当前状态：[docs/STATUS.md](docs/STATUS.md)
-- 低阶模型执行：[docs/EXECUTOR_GUIDE.md](docs/EXECUTOR_GUIDE.md)
-- 高阶模型审查：[docs/REVIEW_GUIDE.md](docs/REVIEW_GUIDE.md)
-- 文档维护：[docs/DOC_MAINTENANCE.md](docs/DOC_MAINTENANCE.md)
+以后无论给高阶模型还是低阶模型，都只需发送同一句：
+
+> **根据 `docs/CHECKLIST.md` 执行。**
+
+模型必须自行核对 GitHub 当前状态、识别自己的角色、从清单中选择最靠前且可执行的工作项，并自动确定对应 Issue、PR 和分支；不再要求用户手工指定 Issue 或 PR 编号。
+
+其他文件均是清单按需引用的稳定资料：
+
 - 产品边界：[docs/PRODUCT.md](docs/PRODUCT.md)
 - 规则契约：[docs/GAME_RULES.md](docs/GAME_RULES.md)
 - 架构约束：[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 - 路线图：[docs/ROADMAP.md](docs/ROADMAP.md)
 - 模型底线：[AGENTS.md](AGENTS.md)
 - 贡献流程：[CONTRIBUTING.md](CONTRIBUTING.md)
-
-以后派发低阶模型，只需说：`阅读 docs/EXECUTOR_GUIDE.md，执行 Issue #N。`
-
-以后让高阶模型审查，只需说：`阅读 docs/REVIEW_GUIDE.md，开始审查 PR #N。`
 
 ## 知识产权说明
 
