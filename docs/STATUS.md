@@ -10,15 +10,19 @@
 - 当前开放 PR：#11，对应 Issue #2。
 - PR #11 当前 head：`27142ed8cff9dc9cf2f3c623da5dae07a6ab14c4`。
 - 该 head 的 GitHub Actions CI 已成功。
-- 最近一次“通过”审查覆盖的 head 是 `0e84cb7eeba2d13740167752b6180b710f1978bd`，不是当前 head；因此按“head 变化后必须复审”的规则，PR #11 当前状态为 `IN_REVIEW`，不能按旧审查直接合并。
+- 最近一次“通过”审查覆盖的 head 是 `0e84cb7eeba2d13740167752b6180b710f1978bd`，不是当前 head；旧审查已失效。
+- 本轮协作文档重构已直接进入 `main`，而 PR #11 仍包含旧版 README / AGENTS / CONTRIBUTING / PR 模板等协作文档改动；GitHub 当前显示 PR #11 不可直接合并，需要先把最新 `main` 合入或变基并解决冲突。
+- 因此 #2 / PR #11 当前状态为 `CHANGES_REQUESTED`：先仅处理与最新 `main` 的冲突，再由高阶模型复审新的当前 head。
 - Issue #2 仍开放；Issue #3–#9 均开放且受依赖阻塞；Issue #10 已关闭并明确暂缓。
 
 ## 当前下一步
 
-1. 高阶模型按 `docs/REVIEW_GUIDE.md` 重新审查 PR #11 的当前 head。
-2. 若当前 head 审查结论为“通过”且 CI 仍成功，将 #2 / PR #11 标记为 `APPROVED`。
-3. 由仓库所有者或明确授权者 squash merge PR #11。
-4. 合并后将 Issue #2 标记为 `DONE`，并把 Issue #3 解锁为 `READY`。
+1. 原执行者在 `chore/issue-2-project-scaffold` 上同步最新 `main`，只解决协作文档与 README 冲突，不扩大 Issue #2 范围。
+2. 推送后等待新 head 的 CI。
+3. 高阶模型按 `docs/REVIEW_GUIDE.md` 审查新 head，重点比较旧已审查 head 到新 head 的增量，并确认协作文档重构未被旧版本覆盖。
+4. 若新 head 审查结论为“通过”、CI 成功且无未解决阻塞/重要线程，将 #2 / PR #11 标记为 `APPROVED`。
+5. 由仓库所有者或明确授权者 squash merge PR #11。
+6. 合并后将 Issue #2 标记为 `DONE`，并把 Issue #3 解锁为 `READY`。
 
 ## 状态词典
 
@@ -37,7 +41,7 @@
 
 | 波次 | Issue / PR | 任务 | 当前状态 | 解锁条件 | 建议分支 |
 | --- | --- | --- | --- | --- | --- |
-| 0 | #2 / PR #11 | TypeScript 应用与质量工具链脚手架 | `IN_REVIEW` | 当前 head 复审通过后可进入 `APPROVED` | `chore/issue-2-project-scaffold` |
+| 0 | #2 / PR #11 | TypeScript 应用与质量工具链脚手架 | `CHANGES_REQUESTED` | 同步最新 `main`、解决冲突、新 head CI + 复审通过 | `chore/issue-2-project-scaffold` |
 | 1 | #3 | 核心领域 ID、规则错误与结果类型 | `BLOCKED` | #2 合并 | `feat/issue-3-core-domain-types` |
 | 2A | #4 | 标准六角棋盘拓扑 | `BLOCKED` | #3 合并 | `feat/issue-4-board-topology` |
 | 2B | #5 | 可注入、可设 seed 的随机源 | `BLOCKED` | #2、#3 合并 | `feat/issue-5-seeded-random` |
