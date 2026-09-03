@@ -1,0 +1,63 @@
+name: 模型协作任务
+description: 为需要进入 Planner → Executor → Reviewer 闭环的工作建立 GitHub Issue
+title: "[TASK] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        本 Issue 用于讨论和追踪；真正的执行契约以 `docs/tasks/TASK-XXX.md` 为准。
+
+  - type: input
+    id: task_id
+    attributes:
+      label: TASK ID
+      description: 例如 TASK-001；若尚未由 Planner 分配，可填写 TBD。
+      placeholder: TASK-001
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: 用简洁语言描述需要实现的结果。
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: 背景、动机、相关链接或约束。
+    validations:
+      required: false
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: 当前需要的角色
+      options:
+        - Planner — 需要高阶规划/决策
+        - Executor — 已规划，可执行
+        - Reviewer — 等待高阶审查
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: 若已有 TASK，请与 TASK 保持一致；不要在 Issue 中维护冲突版本。
+      placeholder: |
+        - [ ] AC-1
+        - [ ] AC-2
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes / Problems
+      description: 补充讨论。关键决策最终仍需沉淀回 TASK / ADR / 权威文档。
+    validations:
+      required: false
