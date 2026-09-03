@@ -3,24 +3,33 @@
 > 权威职责：提供项目当前全局快照。保持短小；详细信息应链接到 TASK、Issue 或 PR。主要由高阶 Planner/Reviewer 维护。
 
 **Last Updated:** 2026-09-03  
-**Current Stage:** Stage 0 — Collaboration Bootstrap  
-**Current Milestone:** 建立并验证 V1 多模型协作闭环
+**Current Stage:** Stage 1 — Foundation and Rule Contract  
+**Current Milestone:** M1 Foundation  
+**Planning Baseline:** ACCEPTED_FOR_MVP
 
 ## Completed
 
-- V1 角色模型与权限规则已建立。
-- TASK 状态机已建立。
-- Planner / Executor / Reviewer 指南与模板已建立。
+- V1 多模型角色、权限、状态机、指南和模板已建立。
+- 项目范围已确定为 3–4 人 Web 局域网原创基础规则桌游。
+- PROJECT、ARCHITECTURE 和 ROADMAP 已形成首版权威基线。
+- ADR-001 至 ADR-003 已接受。
+- TASK-001 至 TASK-012 已完成规划拆分。
+
+## Ready
+
+- TASK-001 — TypeScript 单仓库骨架与质量门禁。
+
+## Planned / Dependency-Gated
+
+- TASK-002 至 TASK-006 — 棋盘与完整权威规则引擎。
+- TASK-007 至 TASK-009 — LAN 房间、客户端与断线恢复。
+- TASK-010 至 TASK-012 — 端到端验证、打包运行和原创发布审查。
 
 ## In Progress
 
-- 等待录入真实项目目标并开始 Stage 1。
-
-## Blocked
-
 - None.
 
-## Active Tasks
+## Blocked
 
 - None.
 
@@ -30,12 +39,24 @@
 
 ## Next
 
-1. 用户向高阶 Planner 提供真实项目目标/需求。
-2. Planner 更新 `PROJECT.md`、`ARCHITECTURE.md`、`ROADMAP.md`。
-3. Planner 基于 `TASK_TEMPLATE.md` 创建首个 `TASK-001.md`，状态设置为 READY。
-4. Executor 执行 TASK-001 并发起 PR。
-5. Reviewer 完成首轮审查与收尾。
+1. Executor 领取 docs/tasks/TASK-001.md，并按 AGENTS.md 创建独立分支和 PR。
+2. Reviewer 合并 TASK-001 后更新其状态为 DONE，并将 TASK-002 从 DRAFT 提升为 READY。
+3. TASK-002 完成后，Planner 按 ROADMAP 依赖顺序释放后续任务。
+4. 不得在本次规划提交中实现业务代码。
 
-## Notes
+## Key Risks to Watch
 
-本文件只保存“现在是什么状态”。不要把详细执行日志写到这里。
+- 客户端意外获得或推导他人私密牌面；
+- 规则状态机在强盗、发展卡子流程或交易并发时出现非法跳转；
+- 最长道路算法对环、分叉、阻断和并列处理错误；
+- 断线重试造成重复扣费或重复建造；
+- 随机地图在不同运行环境不可复现；
+- 使用了官方品牌、美术、版式或无许可第三方资产。
+
+## Open Decisions
+
+- 正式原创产品名称；
+- 终局重赛和房主协商终止的具体体验；
+- 本地快照默认保留/清理期限。
+
+以上不阻塞 TASK-001。需要时由 Planner 建 ADR 或补充对应 TASK，不得由 Executor 临场决定。
