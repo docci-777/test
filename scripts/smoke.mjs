@@ -6,9 +6,12 @@ import { dirname, resolve } from "node:path";
 import { WebSocket } from "ws";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const serverEntry = resolve(root, "apps/server/dist/index.js");
+const serverEntry = process.env.SMOKE_SERVER_ENTRY
+  ? resolve(process.env.SMOKE_SERVER_ENTRY)
+  : resolve(root, "apps/server/dist/index.js");
 const healthTimeoutMs = 10_000;
 const probeTimeoutMs = 5_000;
+const cleanupTimeoutMs = 1_000;
 
 function assert(condition, message) {
   if (!condition) {
@@ -83,7 +86,7 @@ async function stopServer(processInfo) {
   }
 
   processInfo.child.kill("SIGTERM");
-  await waitForExit(processInfo, probeTimeoutMs).catch(() => {
+  await waitForExit(processInfo, cleanupTimeoutMs).catch(() => {
     if (processInfo.child.exitCode === null) {
       processInfo.child.kill("SIGKILL");
     }
@@ -97,15 +100,25 @@ async function waitForHealth(port, processInfo) {
       throw new Error(`server 在等待 health 时退出，stderr：${processInfo.stderr}`);
     }
 
+    const remainingMs = deadline - Date.now();
+    if (remainingMs <= 0) {
+      break;
+    }
+
     try {
-      const response = await fetch(`http://127.0.0.1:${port}/health`);
+      const response = await fetch(`http://127.0.0.1:${port}/health`, {
+        signal: AbortSignal.timeout(remainingMs),
+      });
       if (response.status === 200) {
         return;
       }
     } catch {
       // Server may still be binding the port.
     }
-    await delay(100);
+    const delayMs = Math.min(100, Math.max(0, deadline - Date.now()));
+    if (delayMs > 0) {
+      await delay(delayMs);
+    }
   }
 
   throw new Error(`health 未在 ${healthTimeoutMs}ms 内可用`);

@@ -11,6 +11,8 @@ const rootsToScan = [
 const externalUrlPattern = /^(?:https?:|wss?:|\/\/)/i;
 const sourceExtensions = new Set([".css", ".html", ".js", ".jsx", ".ts", ".tsx"]);
 const buildExtensions = new Set([".css", ".html", ".js"]);
+const linkResourceRels = new Set(["stylesheet", "preload", "modulepreload", "icon", "prefetch"]);
+const srcResourceTags = new Set(["script", "img", "audio", "video", "source", "iframe", "track"]);
 
 function stripComments(content, extension) {
   if (extension === ".css" || extension === ".js" || extension === ".jsx" || extension === ".ts" || extension === ".tsx") {
@@ -23,6 +25,10 @@ function stripComments(content, extension) {
 
 function isExternalResource(value) {
   return externalUrlPattern.test(value.trim());
+}
+
+function attributeValue(tag, attribute) {
+  return new RegExp(`\\b${attribute}\\s*=\\s*["']([^"']+)["']`, "i").exec(tag)?.[1] ?? null;
 }
 
 function collectReferences(content, extension, filePath) {
@@ -38,7 +44,19 @@ function collectReferences(content, extension, filePath) {
   };
 
   if (extension === ".html" || extension === ".jsx" || extension === ".tsx") {
-    addMatches(/(?:src|href)\s*=\s*["']([^"']+)["']/gi, "html-or-jsx-attribute");
+    for (const tagMatch of withoutComments.matchAll(/<(script|link|img|audio|video|source|iframe|track)\b[^>]*>/gi)) {
+      const tag = tagMatch[0];
+      const tagName = tagMatch[1].toLowerCase();
+      const rel = attributeValue(tag, "rel");
+      const isLinkResource = tagName === "link"
+        && rel?.split(/\s+/).some((token) => linkResourceRels.has(token.toLowerCase()));
+      const resource = tagName === "link"
+        ? isLinkResource ? attributeValue(tag, "href") : null
+        : srcResourceTags.has(tagName) ? attributeValue(tag, "src") : null;
+      if (resource !== null && isExternalResource(resource)) {
+        references.push({ file: filePath, kind: `${tagName}-resource`, value: resource.trim() });
+      }
+    }
   }
   if (extension === ".css") {
     addMatches(/url\(\s*["']?([^"')]+)["']?\s*\)/gi, "css-url");
