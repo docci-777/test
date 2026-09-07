@@ -93,3 +93,20 @@ docker run --rm --entrypoint sh -v /private/tmp/test-collaboration-0907:/workspa
 正常路径 Docker 命令：`npm ci`、`npm ls --all`、`npm run typecheck`、`npm run build`、`npm run test:smoke`、`npm run check:offline`、`git diff --check`；A1/A3/A6 及正常 A2/A4 结果如上。临时夹具只写 Docker `/tmp`，未停止 `test-t02-app-0907` 或 `test-t02-browser-0907`。详细复现、期望和浏览器证据见 `/private/tmp/test-t02-review.md`。
 
 **结论：CHANGES_REQUESTED。** A2 的 smoke 硬超时、A4 的 HTML 文档链接误报需修复，A5 需补真实第二设备证据；在三项完成并重新锁定 head 前，不批准 T02、不置 DONE、不开放 T03。
+
+## 2026-09-08 T02 v1 R1 独立定向复核记录：PR15
+
+- Reviewer 会话：`/root/reviewer`；模型/推理强度：`gpt-5.6-luna` / `max`
+- 被审 head：`c86df40f12e47cad9292c2d061f4c2751dd98710`；R1 基线：`9a8c7d77034a75b12aaaabbb302ec7e3f7b40c11`
+- 范围：仅 P13 health 总 10 秒 deadline/清理和 P14 离线资源导航例外、实际加载资源检出；保留 PR15 的 A2/A4 失败历史，不重跑 A1/A3/A6 或浏览器。
+
+### R1 逐项结论
+
+1. **P13 PASS，可关闭。** Docker 无响应 `/health` 夹具未使用外层 `timeout`，`SMOKE_SERVER_ENTRY=/tmp/t02-r1-nohealth.mjs npm run test:smoke` 在 10263 ms 后 exit 1，输出 `health 未在 10000ms 内可用`；夹具 PID 的结束后 `kill -0` 检查为 `pid_alive=no`，`finally` 清理通过。
+2. **P14 PASS，可关闭。** 正向夹具的外部 `<a href>`、`<area href>`、`<link rel="canonical" href>` 未误报，exit 0 且 `externalReferences: []`。负向夹具 exit 1，检出 stylesheet/preload/modulepreload/icon/prefetch、script、img/audio/video/source/iframe/track，以及 CSS `url`/`@import`、fetch、动态 import、WebSocket 外链。
+
+### 回归命令与范围
+
+`catan-e2e:latest` Docker（`--network none`）中 `npm run test:smoke` exit 0，startup/health/首页 JS-CSS/404/WS/非法和占用端口均通过；`npm run check:offline` exit 0，`externalReferences: []`。P13/P14 完整夹具证据见 [`/private/tmp/test-t02-r1-review.md`](file:///private/tmp/test-t02-r1-review.md)；夹具只存在容器 `/tmp`，未停止主代理验收容器。
+
+**结论：P13/P14 修复通过，原两项返工问题关闭；整体仍 CHANGES_REQUESTED。** A5 真实第二设备仍 NOT_RUN，Docker 浏览器/同机截图不能替代实体局域网设备，该 P11 证据门槛仍阻断 T02 APPROVED/DONE 和 T03 开放。

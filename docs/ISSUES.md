@@ -33,7 +33,7 @@
 |ID|类型/日期/发现者|状态/Owner|来源与影响|安排/关闭证据要求|
 |---|---|---|---|---|
 |P10|设计平衡风险；2026-09-07；Planner|OPEN / Planner|T01地图到中心均6，但到最近据点A5/B4/C4；未验证20～40分钟|T07真实实玩记录座位、轮数、时长、胜法；有明显位置优势时由Planner另发地图修订任务；当前NOT_RUN，不阻塞工程搭建|
-|P11|环境验证缺口；2026-09-07；Planner|OPEN / Executor(T02)|当前没有依赖安装、构建或真实局域网设备验证|T02-A1～A5提交版本/命令/设备证据；关键验收缺失阻断T02批准；当前NOT_RUN|
+|P11|环境验证缺口；2026-09-07创建、2026-09-08更新；Planner|OPEN / Executor(T02)|历史“没有依赖安装、构建或真实局域网设备验证”已由Docker安装/构建、浏览器及相关自动验证补充；当前仅T02-A5真实第二设备/LAN证据缺失，继续阻断T02批准|补真实设备、浏览器、主机IP、步骤和截图；A5完成前保持OPEN，不能批准T02或开放T03|
 |P12|资源容量风险；2026-09-07；Planner|OPEN / Planner|T05请求去重缓存按房间生命周期保留，长期开房会占内存|T07记录正常25轮三人局缓存数量/内存；本期不做互联网承载承诺，若异常增长提交明确修订；不得在Executor中静默过期已成功请求|
 
 ## 2026-09-08 T02 PR15返工问题（阻断T02批准）
@@ -42,8 +42,8 @@
 
 |ID|类型/日期/发现者|状态/Owner|来源与影响|R1安排/关闭证据要求|
 |---|---|---|---|---|
-|P13|health等待超时；2026-09-08；Reviewer|OPEN / Executor(T02)|`scripts/smoke.mjs:93-112`的`waitForHealth`每次`fetch`无单次剩余deadline；无响应health夹具约12秒仍被外部timeout终止，T02-A2失败|R1为每次fetch传入总10秒deadline的剩余超时（`AbortSignal.timeout`或等价）；Docker `/tmp`夹具约10秒非零失败并确认`finally`清理；重新提交A2退出码/耗时/清理证据；关联P11实机缺证仍阻断批准|
-|P14|离线资源扫描误报HTML文档链接；2026-09-08；Reviewer|OPEN / Executor(T02)|`scripts/check-offline-assets.mjs:40-42`把普通`<a href="https://…">`当资源引用，合法文档导航导致T02-A4失败|R1忽略HTML普通`a`文档导航，同时继续对CSS `url`/`@import`、`fetch`/`import`/`WebSocket`、`script src`/`link stylesheet`外链返回非零；Docker `/tmp`正反夹具回归并提交A4结果；关联P11实机缺证仍阻断批准|
+|P13|health等待超时；2026-09-08；Reviewer|CLOSED / Executor(T02)|`scripts/smoke.mjs:93-112`的`waitForHealth`每次`fetch`无单次剩余deadline；无响应health夹具约12秒仍被外部timeout终止，T02-A2失败历史保留|R1修复后由Reviewer复核代码SHA `c86df40f12e47cad9292c2d061f4c2751dd98710`：无响应夹具10263ms、exit 1、PID清理通过；P13 CLOSED。A5实机缺证仍由P11阻断整体批准|
+|P14|离线资源扫描误报HTML文档链接；2026-09-08；Reviewer|CLOSED / Executor(T02)|`scripts/check-offline-assets.mjs:40-42`把普通`<a href="https://…">`当资源引用，合法文档导航导致T02-A4失败历史保留|R1修复后由Reviewer复核代码SHA `c86df40f12e47cad9292c2d061f4c2751dd98710`：正反资源夹具通过，导航/canonical例外及指定实际资源关系均覆盖；P14 CLOSED。A5实机缺证仍由P11阻断整体批准|
 
 P11关联：P11原有“没有依赖安装、构建或真实局域网设备验证”的记录保留为历史；当前T02-A1/A3/A6已有通过证据，但T02-A5真实第二设备/LAN证据（设备、浏览器、主机IP、步骤和截图）仍`NOT_RUN`，继续阻断批准。R1只修复P13/P14，不关闭P11、不批准T02、不开放T03。
 

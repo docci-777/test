@@ -1,5 +1,5 @@
 # 计划实施文档
-版本：0.2；2026-09-08；任务明细唯一来源；T02 R1已提交REVIEW，等待独立复核，当前没有新的READY任务。
+版本：0.2；2026-09-08；任务明细唯一来源；T02 R1代码复核通过但A5实机证据缺失，当前状态BLOCKED，等待用户提供真实第二设备证据。
 ## 实施者协议
 只执行被明确指派、状态 READY 且依赖 DONE 的任务。任务缺少接口、规则、文件范围、验收或可运行验证命令时记录 BLOCKED，交 Planner 补全。
 读取指定源代码和任务附件是允许的；不要据路线图或审查意见自行新增功能。只更新本任务执行/测试/问题区域及 STATUS 对应摘要，不能改规划区域。
@@ -8,7 +8,7 @@
 |ID|负责人|状态|目标|依赖|
 |---|---|---|---|---|
 |T01|Planner|DONE|冻结玩法、地图、协议和房间生命周期|无|
-|T02|Executor（luna_worker_executor）|REVIEW|工程与局域网启动|T01|
+|T02|Executor（luna_worker_executor）|BLOCKED|工程与局域网启动|T01|
 |T03|Executor|DRAFT|初始化、移动、回合规则|T02|
 |T04|Executor|DRAFT|战斗到胜负完整规则|T03|
 |T05|Executor|DRAFT|房间和权威联机|T04|
@@ -35,13 +35,13 @@ DRAFT 是有意保留的规划阶段，不能把以上摘要当成完整实施�
 历史快照（T01审查前）：2026-09-07：读取main全部10个文件，确认原规划已进入main，无应用代码。历史v0.1状态与当前main不同，已同步STATUS；制定D07～D16，G01～G09有明确设计处置，尚待审查确认关闭。
 验证（同一历史快照）：`python docs/contracts/verify_map.py` PASS（225格、12兵、全可通行格连通、每基地两条内部不相交通路、距离比较）；详见附件证据。规划文档本地链接/映射检查PASS。应用构建/规则测试/浏览器/三设备验证均NOT_RUN，无应用；当时独立审查NOT_RUN。当前T01审查结论见下方收尾记录。
 收尾记录：Reviewer正式审查记录已追加；已收到独立Reviewer对原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 四项验收通过的反馈。原始PR #13合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`，据此完成T01收尾。若后续记录发现需返工，Planner升任务/附件版本并保留旧决策，不交实施者直接改契约。
-下一角色：`luna_worker_executor`按T02 READY任务实施；Reviewer正式记录已写入`docs/REVIEW.md`。Planner未编写业务代码、未代做独立审查。
-完成区域：Reviewer已批准原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 的四项验收；原始PR #13合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`；2026-09-07，T01置DONE。G01～G09关闭证据为D07～D15及T01契约审查。T02现为READY，指派`luna_worker_executor`；T03仍DRAFT。
+历史下一角色记录：`luna_worker_executor`按T01收尾时的T02 READY任务实施；Reviewer正式记录已写入`docs/REVIEW.md`。Planner未编写业务代码、未代做独立审查。
+T01完成历史记录：Reviewer已批准原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 的四项验收；原始PR #13合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`；2026-09-07，T01置DONE。G01～G09关闭证据为D07～D15及T01契约审查。T01收尾时T02为READY，指派`luna_worker_executor`；T03仍DRAFT。
 
 ### 2026-09-07 跟进记录（Planner）
 核实（历史）：T01原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 已由PR #13合并为 `8bc63014bd47702c64414bdff6e0a44b2623cb38`；当时独立Reviewer尚未给出结论。后续Reviewer已批准，Planner完成T01收尾并释放T02。此处仅校正文档事实，未修改任何契约；三个角色均由Luna承担；T02完成后停止等待用户，不开放T03。
 
-## T02 — 工程与单服务局域网启动 / v1 / REVIEW（R1复核） / Executor（luna_worker_executor）
+## T02 — 工程与单服务局域网启动 / v1 / BLOCKED（等待A5实机证据） / Executor（luna_worker_executor）
 
 ### 规划区域（仅Planner写）
 目标：创建可安装、类型检查、构建、启动的TypeScript npm工作区；主机单Node进程同时提供静态Web页面、GET /health及 /ws升级入口，让局域网其他设备访问。交付仅工程壳，页面明确“游戏功能尚未实现”，展示连接状态与重启丢局说明。
@@ -82,7 +82,7 @@ DRAFT 是有意保留的规划阶段，不能把以上摘要当成完整实施�
 
 ### T02 v1 / R1返工指派（2026-09-08）
 
-触发：PR15 head `4534a2acc9d9a89bda9f0c1fdd07b2dfbea0778e` 经独立 Reviewer 审查为 `CHANGES_REQUESTED`；详细复现与证据见`/private/tmp/test-t02-review.md`及`docs/REVIEW.md`。T02保持`READY`，但仅允许本节R1返工；不开放T03。
+触发：PR15 head `4534a2acc9d9a89bda9f0c1fdd07b2dfbea0778e` 经独立 Reviewer 审查为 `CHANGES_REQUESTED`；详细复现与证据见`/private/tmp/test-t02-review.md`及`docs/REVIEW.md`。历史指派状态为T02保持`READY`且仅允许本节R1返工；当前状态见执行区，为`BLOCKED`并不开放T03。
 
 指派：`luna_worker_executor`。允许写入仅为`scripts/smoke.mjs`、`scripts/check-offline-assets.mjs`、T02执行区域及`STATUS`对应摘要；不新增仓库测试文件或依赖，不改契约、验收表或其他代码。
 
@@ -95,19 +95,23 @@ R1范围：
 
 ### 执行区域（Executor填写）
 历史执行状态：REVIEW（实现与自动/浏览器证据已交付；A5真实第二设备证据仍待验收）。
-当前返工状态：REVIEW（仅R1返工；P13/P14已修复并回归通过，等待Reviewer复核；A5仍NOT_RUN）。
+历史返工状态：REVIEW（仅R1返工；P13/P14已修复并回归通过，等待Reviewer复核；A5仍NOT_RUN）。
+当前状态：BLOCKED（R1代码复核通过；P13/P14已CLOSED；等待A5真实第二设备证据；整体未APPROVED、未合并、未DONE）。
 开始时间/模型：2026-09-07 18:23 +0800；`gpt-5.6-luna` / `max`；分支/基线SHA：`codex/t02-bootstrap` / `b48af71e2f77a55511dc642d6c5b4025278355f0`。已指派：`luna_worker_executor`。
-R1开始/完成：2026-09-08 01:10 +0800；`gpt-5.6-luna` / `max`；R1基线SHA：`9a8c7d77034a75b12aaaabbb302ec7e3f7b40c11`；开始状态`IN_PROGRESS`，完成状态`REVIEW`。
+历史R1开始/完成记录：2026-09-08 01:10 +0800；`gpt-5.6-luna` / `max`；R1基线SHA：`9a8c7d77034a75b12aaaabbb302ec7e3f7b40c11`；开始状态`IN_PROGRESS`，完成状态`REVIEW`。
 实际依赖版本：Docker `catan-e2e:latest` 内 Node `22.23.2`、npm `10.9.8`；React `19.2.8`、react-dom `19.2.8`、Vite `7.3.6`、`@vitejs/plugin-react` `5.2.0`、TypeScript `5.9.3`、ws `8.21.3`、`@types/node` `22.20.1`、`@types/react` `19.2.18`、`@types/react-dom` `19.2.7`、`@types/ws` `8.18.1`。兼容简证：Vite/plugin-react要求Node `^20.19.0 || >=22.12.0`，由Node `22.23.2`满足；plugin-react的Vite peer接受7.x；react-dom的React peer为`^19.2.8`；@types/react-dom的类型peer为`^19.2.0`；npm结构化依赖问题列表为空。十个候选主版本查询及十个精确版本兼容查询均退出0；完整engines/peerDependencies记录在`/private/tmp/test-t02-dependencies.md`。
 变更文件/日志：工作区配置、四包配置、两个共享包`export {};`入口、server/web入口与样式、`scripts/smoke.mjs`、`scripts/check-offline-assets.mjs`、`README.md`及根`package-lock.json`；实现报告见`/private/tmp/test-t02-app-report.md`。Docker验证：`npm ci` exit 0、`npm ls --all` exit 0、`npm run typecheck` exit 0、`npm run build` exit 0、`npm run test:smoke` exit 0、`npm run check:offline` exit 0（`externalReferences: []`）、`git diff --check` exit 0。
 T02-A1：PASS（上述ci/ls/typecheck/build证据）；T02-A2：PASS（smoke自动探针，health最长10秒、首页JS/CSS、404、WS及finally清理）；T02-A3：PASS（3100启动、非法PORT和占用端口非0）；T02-A4：PASS（离线扫描无外部资源，浏览器证据`/private/tmp/test-t02-browser-proof.json`，外部请求被阻断且无页面错误）；T02-A5：NOT_RUN（无真实第二设备证据）；T02-A6：PASS（README/命令核对及`git diff --check`）。
 PR15复核：A2 FAIL（无响应health夹具超过10秒未及时失败）；A4 FAIL（HTML普通`a`文档外链误报）；A5 NOT_RUN（无真实第二设备证据）；A1/A3/A6仍保留PASS。上述失败历史以R1返工修复，不覆盖原执行记录。
 R1回归记录：`npm run test:smoke` exit 0；`npm run check:offline` exit 0。P13无响应health Docker夹具自然耗时11秒，exit 1，未使用外层`timeout`，finally清理通过；P14正向夹具（仅HTML`a href`文档外链）exit 0，负向夹具exit 1并检测script/link stylesheet/img、CSS url/import及fetch/import/WebSocket外链。R1补充资源关系夹具在Docker `/tmp`中：导航`a/area href`与`link canonical`外链正向 exit 0（27ms）；`link stylesheet/preload/modulepreload/icon/prefetch`及script/img/audio/video/source/iframe/track外链负向 exit 1（22ms），原CSS/fetch/import/WebSocket仍检测；正常`npm run check:offline` exit 0（170ms，`externalReferences: []`）。命令与结果详见`/private/tmp/test-t02-r1-result.md`。
-未完成：A5真实第二设备访问与R1独立Reviewer复核；不将当前T02置DONE/APPROVED。问题：P13/P14已修复待复核；PR/交接：待主代理统一提交并保持REVIEW（仅R1复核）。
+R1复核记录：Reviewer于2026-09-08复核代码SHA `c86df40f12e47cad9292c2d061f4c2751dd98710`；P13无响应夹具耗时10263ms、exit 1并确认PID清理，P14正反资源夹具通过；正常smoke/offline在Docker `--network none`下均exit 0。P13/P14可关闭；A5真实第二设备证据仍NOT_RUN，整体审查仍CHANGES_REQUESTED。详细证据见`/private/tmp/test-t02-r1-review.md`。
+历史交接记录：未完成：A5真实第二设备访问与R1独立Reviewer复核；不将当前T02置DONE/APPROVED。问题：P13/P14已修复待复核；PR/交接：待主代理统一提交并保持REVIEW（仅R1复核）。
+本轮停止：R1代码复核已通过并关闭P13/P14；仅剩A5真实第二设备访问证据，当前T02 BLOCKED，未APPROVED、未合并、未DONE。PR15等待用户提供实机证据及后续授权合并；不开放T03。
 ### 审查区域（Reviewer填写）
-审查记录链接：`docs/REVIEW.md`、`/private/tmp/test-t02-review.md`；被审SHA：`4534a2acc9d9a89bda9f0c1fdd07b2dfbea0778e`；结论：`CHANGES_REQUESTED`；返工问题：P13 health等待超时、P14 HTML文档链接误报；A5真实第二设备证据仍`NOT_RUN`并阻断批准。
+历史审查记录：审查记录链接：`docs/REVIEW.md`、`/private/tmp/test-t02-review.md`；被审SHA：`4534a2acc9d9a89bda9f0c1fdd07b2dfbea0778e`；结论：`CHANGES_REQUESTED`；返工问题：P13 health等待超时、P14 HTML文档链接误报；A5真实第二设备证据仍`NOT_RUN`并阻断批准。
+最新复核：审查记录链接：`docs/REVIEW.md`、`/private/tmp/test-t02-r1-review.md`；被审SHA：`c86df40f12e47cad9292c2d061f4c2751dd98710`；P13/P14复核结论均为`PASS`并可关闭；P13证据为无响应夹具10263ms、exit 1、PID已清理，P14正反资源夹具通过；A5真实第二设备证据仍`NOT_RUN`，整体结论仍`CHANGES_REQUESTED`。
 ### 完成区域（Planner填写）
-T02尚未合并或完成；PR15 head `4534a2acc9d9a89bda9f0c1fdd07b2dfbea0778e` 审查结论为`CHANGES_REQUESTED`，A2/A4按R1返工，A5真实第二设备证据仍`NOT_RUN`并阻断批准。下一任务T03保持DRAFT且不开放。
+本轮停止：R1代码复核已通过并关闭P13/P14；T02仍因A5真实第二设备证据缺失而BLOCKED，未APPROVED、未合并、未DONE。PR15等待用户提供实机证据及后续授权合并；下一任务T03保持DRAFT且不开放。
 
 ## 后续任务附件约束
 T03～T07仍是路线图摘要，均DRAFT，不构成可执行任务。T03必须携带map-v1/RULES-v1/PROTOCOL-v1及O01/O03～O08/E01/E05；T04携带完整玩法及O09～O19/E01～E06；T05携带协议及E07～E10；T06携带全部契约和交互验收；T07携带完整映射及真实设备记录要求。Planner在各依赖DONE后补齐文件范围、明确步骤、可运行验证命令与执行区域，再逐项READY。
