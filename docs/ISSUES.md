@@ -35,3 +35,22 @@
 |P10|设计平衡风险；2026-09-07；Planner|OPEN / Planner|T01地图到中心均6，但到最近据点A5/B4/C4；未验证20～40分钟|T07真实实玩记录座位、轮数、时长、胜法；有明显位置优势时由Planner另发地图修订任务；当前NOT_RUN，不阻塞工程搭建|
 |P11|环境验证缺口；2026-09-07；Planner|OPEN / Executor(T02)|当前没有依赖安装、构建或真实局域网设备验证|T02-A1～A5提交版本/命令/设备证据；关键验收缺失阻断T02批准；当前NOT_RUN|
 |P12|资源容量风险；2026-09-07；Planner|OPEN / Planner|T05请求去重缓存按房间生命周期保留，长期开房会占内存|T07记录正常25轮三人局缓存数量/内存；本期不做互联网承载承诺，若异常增长提交明确修订；不得在Executor中静默过期已成功请求|
+
+## 2026-09-07 流程事实校正（Planner）
+原始T01 PR #13 已在独立审查前合并（合并提交 `8bc63014bd47702c64414bdff6e0a44b2623cb38`，原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967`）。Reviewer已反馈四项验收通过，Planner据此将T01置DONE并释放T02 READY给`luna_worker_executor`；三个角色均由Luna承担，T02完成后停止等待用户，不开放T03。Owner：Planner。
+
+## G01～G09 当前关闭证据（2026-09-07）
+
+独立 Reviewer `luna_worker_reviewer` 已审查 T01 v1 原始 head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967`，结论为 `APPROVED`；该内容已合并为 `8bc63014bd47702c64414bdff6e0a44b2623cb38`。以下状态覆盖上方历史的 `RESOLVED_PENDING_REVIEW`，保留原记录不覆盖：
+
+|ID|当前状态|关闭证据|审查依据|
+|---|---|---|---|
+|G01|CLOSED|D07、`contracts/map-v1.json`、`MAP-VALIDATION.md`|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
+|G02|CLOSED|D08、`RULES-v1.md` 招募与回合规则|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
+|G03|CLOSED|D09、`RULES-v1.md` 基地与攻城规则|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
+|G04|CLOSED|D10、`RULES-v1.md` 收入与回合规则|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
+|G05|CLOSED|D11、`RULES-v1.md` 连续控制规则|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
+|G06|CLOSED|D12、`RULES-v1.md` 淘汰与胜负规则|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
+|G07|CLOSED|D13、`RULES-v1.md` 战斗边界规则|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
+|G08|CLOSED|D14、`RULES-v1.md` 据点控制规则|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
+|G09|CLOSED|D15、`PROTOCOL-v1.md` 房间与重连协议|T01 v1 Reviewer APPROVED，原始 head `cc613da`|

@@ -7,15 +7,15 @@
 ## 任务表
 |ID|负责人|状态|目标|依赖|
 |---|---|---|---|---|
-|T01|Planner|REVIEW|冻结玩法、地图、协议和房间生命周期|无|
-|T02|Executor|DRAFT|工程与局域网启动|T01|
+|T01|Planner|DONE|冻结玩法、地图、协议和房间生命周期|无|
+|T02|Executor（luna_worker_executor）|READY|工程与局域网启动|T01|
 |T03|Executor|DRAFT|初始化、移动、回合规则|T02|
 |T04|Executor|DRAFT|战斗到胜负完整规则|T03|
 |T05|Executor|DRAFT|房间和权威联机|T04|
 |T06|Executor|DRAFT|完整浏览器交互|T05|
 |T07|Executor|DRAFT|集成、实玩与说明|T06|
 DRAFT 是有意保留的规划阶段，不能把以上摘要当成完整实施指令。
-## T01 — 规则与接口契约 / v1 / REVIEW / Planner
+## T01 — 规则与接口契约 / v1 / DONE / Planner
 目标：将 ISSUES 的 G01～G09 全部转成明确规则，记录 DECISIONS，并把结果完整内嵌到相关 T02～T07 任务或它们的实施附件。
 交付：固定15×15地图坐标与225格地形数据、初始单位坐标；规则优先级、判定时点和实例；GameState/Command/Result数据契约；房间状态与重连/退出约定。
 验收：
@@ -32,17 +32,20 @@ DRAFT 是有意保留的规划阶段，不能把以上摘要当成完整实施�
 同一PR提交中的附件共同构成T01 v1，不允许任意混用其他分支版本。独立Reviewer在REVIEW中锁定本PR实际head SHA；本文不写自引用提交SHA。
 
 ### Planner执行/交接记录
-2026-09-07：读取main全部10个文件，确认原规划已进入main，无开放PR、无应用代码。历史v0.1状态与当前main不同，已同步STATUS；制定D07～D16，G01～G09有明确设计处置，尚待审查确认关闭。
+2026-09-07：读取main全部10个文件，确认原规划已进入main，无应用代码。历史v0.1状态与当前main不同，已同步STATUS；制定D07～D16，G01～G09有明确设计处置，尚待审查确认关闭。
 验证：`python docs/contracts/verify_map.py` PASS（225格、12兵、全可通行格连通、每基地两条内部不相交通路、距离比较）；详见附件证据。规划文档本地链接/映射检查PASS。应用构建/规则测试/浏览器/三设备验证均NOT_RUN，无应用；独立审查NOT_RUN。
-未完成：Reviewer按本提交逐项审查T01四条验收；批准后仍需用户授权合并及Planner收尾。若审查要求返工，Planner升任务/附件版本并保留旧决策，不交实施者直接改契约。
-下一角色：独立高阶Reviewer；审查入口 docs/REVIEW.md，审查对象为本分支PR具体head SHA。Planner本轮未编写业务代码、未代做独立审查、未把T01标为DONE。
-完成区域：合并PR/提交、日期均待填；T02仍DRAFT。
+未完成：Reviewer正式审查记录已追加；已收到独立Reviewer对原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 四项验收通过的反馈。原始PR #13合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`，据此完成T01收尾。若后续记录发现需返工，Planner升任务/附件版本并保留旧决策，不交实施者直接改契约。
+下一角色：`luna_worker_executor`按T02 READY任务实施；Reviewer正式记录已写入`docs/REVIEW.md`。Planner未编写业务代码、未代做独立审查。
+完成区域：Reviewer已批准原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 的四项验收；原始PR #13合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`；2026-09-07，T01置DONE。G01～G09关闭证据为D07～D15及T01契约审查。T02现为READY，指派`luna_worker_executor`；T03仍DRAFT。
 
-## T02 — 工程与单服务局域网启动 / v1 / DRAFT / Executor（尚未指派）
+### 2026-09-07 跟进记录（Planner）
+核实（历史）：T01原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 已由PR #13合并为 `8bc63014bd47702c64414bdff6e0a44b2623cb38`；当时独立Reviewer尚未给出结论。后续Reviewer已批准，Planner完成T01收尾并释放T02。此处仅校正文档事实，未修改任何契约；三个角色均由Luna承担；T02完成后停止等待用户，不开放T03。
+
+## T02 — 工程与单服务局域网启动 / v1 / READY / Executor（luna_worker_executor）
 
 ### 规划区域（仅Planner写）
 目标：创建可安装、类型检查、构建、启动的TypeScript npm工作区；主机单Node进程同时提供静态Web页面、GET /health及 /ws升级入口，让局域网其他设备访问。交付仅工程壳，页面明确“游戏功能尚未实现”，展示连接状态与重启丢局说明。
-依赖：T01 v1独立审查APPROVED且已合并，Planner记录合并SHA并将本任务置READY后才能执行。本轮不提前释放；依赖完成证据：待填。
+依赖：T01 v1独立审查APPROVED且已合并，Planner记录合并SHA并将本任务置READY后才能执行。依赖完成证据：Reviewer批准原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967`；合并提交`8bc63014bd47702c64414bdff6e0a44b2623cb38`。
 包含：React/Vite页面、Node HTTP + ws服务、共享包占位、可配置端口、同源连接、构建/启动脚本、最小服务冒烟与使用说明。排除：棋盘、单位/房间/回合业务、登录、数据库、云服务、部署平台、外网发布及新增游戏设计。
 
 允许文件：根 package.json/package-lock.json/tsconfig.base.json/.gitignore/.nvmrc；apps/web/{package.json,tsconfig.json,index.html,vite.config.ts,src/**}；apps/server/{package.json,tsconfig.json,src/**}；packages/game/{package.json,tsconfig.json,src/index.ts}；packages/protocol/{package.json,tsconfig.json,src/index.ts}；scripts/{smoke.mjs,check-offline-assets.mjs}；README.md；本任务执行/测试/问题区域；STATUS对应摘要；ISSUES追加执行问题。除上述内容外先BLOCKED交Planner，不改AGENTS、规划区域、契约、审查结论，不引入CI或容器作为额外交付。
@@ -76,13 +79,13 @@ DRAFT 是有意保留的规划阶段，不能把以上摘要当成完整实施�
 验证清单即上表；未执行标NOT_RUN及原因，不能凭规划填PASS。结果保存本任务区域（简要原始输出/退出码、人工证据位置），不上传凭据。T02-A5可由用户提供实机证据后Reviewer核对，但当前没有证据。
 
 ### 执行区域（Executor填写）
-开始时间/模型：未开始；分支/基线SHA：待填；实际依赖版本：待填。
-变更文件/日志：无。T02-A1～A6：全部NOT_RUN（DRAFT，依赖未DONE）。
+开始时间/模型：未开始；分支/基线SHA：待填；实际依赖版本：待填。已指派：`luna_worker_executor`。
+变更文件/日志：无。T02-A1～A6：全部NOT_RUN（READY，尚未开始）。
 未完成：全部实施；问题：无实施记录；PR/交接：待填。
 ### 审查区域（Reviewer填写）
 审查记录链接/被审SHA/结论/返工问题：未审查。
 ### 完成区域（Planner填写）
-合并PR/提交/日期：未完成；下一任务T03仍DRAFT，须另行补齐实施步骤与允许文件后释放。
+T01已由Reviewer批准并由Planner于2026-09-07完成收尾；合并提交`8bc63014bd47702c64414bdff6e0a44b2623cb38`。T02已READY并指派`luna_worker_executor`；T03保持DRAFT且不开放。
 
 ## 后续任务附件约束
 T03～T07仍是路线图摘要，均DRAFT，不构成可执行任务。T03必须携带map-v1/RULES-v1/PROTOCOL-v1及O01/O03～O08/E01/E05；T04携带完整玩法及O09～O19/E01～E06；T05携带协议及E07～E10；T06携带全部契约和交互验收；T07携带完整映射及真实设备记录要求。Planner在各依赖DONE后补齐文件范围、明确步骤、可运行验证命令与执行区域，再逐项READY。
