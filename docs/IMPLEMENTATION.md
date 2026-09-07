@@ -81,9 +81,12 @@ DRAFT 是有意保留的规划阶段，不能把以上摘要当成完整实施�
 验证清单即上表；未执行标NOT_RUN及原因，不能凭规划填PASS。结果保存本任务区域（简要原始输出/退出码、人工证据位置），不上传凭据。T02-A5可由用户提供实机证据后Reviewer核对，但当前没有证据。
 
 ### 执行区域（Executor填写）
-开始时间/模型：未开始；分支/基线SHA：待填；实际依赖版本：待填。已指派：`luna_worker_executor`。
-变更文件/日志：无。T02-A1～A6：全部NOT_RUN（READY，尚未开始）。
-未完成：全部实施；问题：无实施记录；PR/交接：待填。
+T02状态：REVIEW（实现与自动/浏览器证据已交付；A5真实第二设备证据仍待验收）。
+开始时间/模型：2026-09-07 18:23 +0800；`gpt-5.6-luna` / `max`；分支/基线SHA：`codex/t02-bootstrap` / `b48af71e2f77a55511dc642d6c5b4025278355f0`。已指派：`luna_worker_executor`。
+实际依赖版本：Docker `catan-e2e:latest` 内 Node `22.23.2`、npm `10.9.8`；React `19.2.8`、react-dom `19.2.8`、Vite `7.3.6`、`@vitejs/plugin-react` `5.2.0`、TypeScript `5.9.3`、ws `8.21.3`、`@types/node` `22.20.1`、`@types/react` `19.2.18`、`@types/react-dom` `19.2.7`、`@types/ws` `8.18.1`。兼容简证：Vite/plugin-react要求Node `^20.19.0 || >=22.12.0`，由Node `22.23.2`满足；plugin-react的Vite peer接受7.x；react-dom的React peer为`^19.2.8`；@types/react-dom的类型peer为`^19.2.0`；npm结构化依赖问题列表为空。十个候选主版本查询及十个精确版本兼容查询均退出0；完整engines/peerDependencies记录在`/private/tmp/test-t02-dependencies.md`。
+变更文件/日志：工作区配置、四包配置、两个共享包`export {};`入口、server/web入口与样式、`scripts/smoke.mjs`、`scripts/check-offline-assets.mjs`、`README.md`及根`package-lock.json`；实现报告见`/private/tmp/test-t02-app-report.md`。Docker验证：`npm ci` exit 0、`npm ls --all` exit 0、`npm run typecheck` exit 0、`npm run build` exit 0、`npm run test:smoke` exit 0、`npm run check:offline` exit 0（`externalReferences: []`）、`git diff --check` exit 0。
+T02-A1：PASS（上述ci/ls/typecheck/build证据）；T02-A2：PASS（smoke自动探针，health最长10秒、首页JS/CSS、404、WS及finally清理）；T02-A3：PASS（3100启动、非法PORT和占用端口非0）；T02-A4：PASS（离线扫描无外部资源，浏览器证据`/private/tmp/test-t02-browser-proof.json`，外部请求被阻断且无页面错误）；T02-A5：NOT_RUN（无真实第二设备证据）；T02-A6：PASS（README/命令核对及`git diff --check`）。
+未完成：A5真实第二设备访问与独立Reviewer审查；不将当前T02置DONE/APPROVED。问题：无已知实现阻塞；PR/交接：待主代理统一提交并保持REVIEW。
 ### 审查区域（Reviewer填写）
 审查记录链接/被审SHA/结论/返工问题：未审查。
 ### 完成区域（Planner填写）

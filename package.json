@@ -1,0 +1,23 @@
+{
+  "name": "lan-game",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0 <23"
+  },
+  "packageManager": "npm@10.9.8",
+  "workspaces": [
+    "apps/web",
+    "apps/server",
+    "packages/game",
+    "packages/protocol"
+  ],
+  "scripts": {
+    "typecheck": "npm run typecheck --workspace @lan-game/game && npm run typecheck --workspace @lan-game/protocol && npm run typecheck --workspace @lan-game/server && npm run typecheck --workspace @lan-game/web",
+    "build": "npm run build --workspace @lan-game/game && npm run build --workspace @lan-game/protocol && npm run build --workspace @lan-game/server && npm run build --workspace @lan-game/web",
+    "start": "npm run start --workspace @lan-game/server",
+    "test:smoke": "node scripts/smoke.mjs",
+    "check:offline": "node scripts/check-offline-assets.mjs"
+  }
+}

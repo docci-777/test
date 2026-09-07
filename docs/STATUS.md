@@ -6,7 +6,7 @@ main已包含v0.1协作文档；T01 v1契约提案现已完成编写：225格地
 
 ## 当前
 T01已DONE：Reviewer批准原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 四项验收，合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`。
-T02 v1已READY，指派`luna_worker_executor`；T03～T07均DRAFT。已DONE任务1/7；无应用业务代码、无可运行游戏；应用安装/构建/测试、浏览器及三设备实玩均NOT_RUN。
+T02 v1已REVIEW，指派`luna_worker_executor`；工作区、单服务HTTP/WS探针、中文工程页、smoke与离线资源检查已在 Docker 内完成，`npm ci`、`npm ls --all`、typecheck、build、smoke、offline检查均通过，浏览器证据已记录；T02-A5真实第二设备仍NOT_RUN，故不置DONE/APPROVED。T03～T07均DRAFT。已DONE任务1/7；无应用业务代码、无可运行游戏。
 G01～G09已关闭，证据为D07～D15及T01契约审查。P10地图平衡、P11依赖/设备验证、P12缓存容量风险见ISSUES。
 
 ## 下一步与交接

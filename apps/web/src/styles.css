@@ -1,0 +1,125 @@
+:root {
+  color: #e7edf5;
+  background: #101923;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.page-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 10%, #27435a 0, transparent 40%),
+    #101923;
+}
+
+.hero-card {
+  width: min(100%, 680px);
+  padding: clamp(28px, 6vw, 64px);
+  border: 1px solid #385269;
+  border-radius: 24px;
+  background: #172431;
+  box-shadow: 0 24px 70px rgb(0 0 0 / 28%);
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  color: #71c7bd;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 12ch;
+  margin-bottom: 20px;
+  color: #ffffff;
+  font-size: clamp(2.2rem, 7vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.intro {
+  max-width: 48ch;
+  margin-bottom: 32px;
+  color: #b6c5d5;
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.connection-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding: 15px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.connection-connecting {
+  color: #f6d487;
+  background: #463a20;
+}
+
+.connection-connected {
+  color: #8ce4bd;
+  background: #1e493e;
+}
+
+.connection-disconnected {
+  color: #ffaaa4;
+  background: #512c31;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 5px rgb(255 255 255 / 8%);
+}
+
+.notice-card {
+  padding-top: 24px;
+  border-top: 1px solid #385269;
+}
+
+.notice-card h2 {
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.notice-card p {
+  margin-bottom: 0;
+  color: #9eb0c2;
+  line-height: 1.65;
+}
