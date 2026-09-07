@@ -1,5 +1,5 @@
 # 问题台账
-日期：2026-09-07。以下为阅读原稿发现的设计缺口，尚非运行故障。Owner均为Planner，状态均OPEN，阻塞T01及相应实施任务。
+日期：2026-09-07。以下为阅读原稿发现的设计缺口，尚非运行故障。历史初始状态：Owner均为Planner，状态均OPEN，阻塞T01及相应实施任务。最新处置见下方追加记录；保留原始问题描述。
 |ID|问题/证据|必须明确的内容|
 |---|---|---|
 |G01|第3/10节没有固定坐标|地图225格、基地/据点/初始单位坐标及三方通路|
@@ -13,3 +13,25 @@
 |G09|原稿无房间协议|房主离开、刷新、席位凭据、掉线暂停、主动退出、再开与房间清理|
 ## 记录规范
 新问题写日期、发现者、任务/提交、影响、复现或来源、状态、Owner、决策链接、关闭证据。不能用“已解决”替代说明。运行故障和规则争议分别标识。旧记录保留。
+
+
+## 2026-09-07 T01 v1设计处置（Planner）
+来源：main c2dc0f7的原稿/问题表；任务：T01 v1，分支planner/t01-contract-v1。以下RESOLVED_PENDING_REVIEW表示已有确定设计，尚非独立验证关闭；T01审查合并前仍阻塞实施。
+|ID|状态|Owner|决策/处置证据|
+|---|---|---|---|
+|G01|RESOLVED_PENDING_REVIEW|Planner|D07；contracts/map-v1.json、RULES-v1地图节及MAP-VALIDATION；225格/通路实测PASS|
+|G02|RESOLVED_PENDING_REVIEW|Planner|D08；RULES-v1回合/招募：四邻出生、失败保留阶段、新兵休眠|
+|G03|RESOLVED_PENDING_REVIEW|Planner|D09；RULES-v1基地/伤害：未毁基地阻挡、显式攻城、无同格守军|
+|G04|RESOLVED_PENDING_REVIEW|Planner|D10；RULES-v1回合：每玩家回合开始一次收入，初始可操作资源6/4/4|
+|G05|RESOLVED_PENDING_REVIEW|Planner|D11；RULES-v1连续控制：轮开始采样、中途跌破2即归零|
+|G06|RESOLVED_PENDING_REVIEW|Planner|D12；RULES-v1淘汰：立即清场、过滤顺序、最后存活者及25轮排序|
+|G07|RESOLVED_PENDING_REVIEW|Planner|D13；RULES-v1战斗：横竖距离、弓兵被近战可反击、冲锋按路径格数|
+|G08|RESOLVED_PENDING_REVIEW|Planner|D14；RULES-v1据点：争夺不自动恢复、步兵再次占领|
+|G09|RESOLVED_PENDING_REVIEW|Planner|D15；PROTOCOL-v1：随机席位token、串行版本与去重、掉线暂停/恢复/退出/再开/回收|
+
+## 非阻塞后续风险
+|ID|类型/日期/发现者|状态/Owner|来源与影响|安排/关闭证据要求|
+|---|---|---|---|---|
+|P10|设计平衡风险；2026-09-07；Planner|OPEN / Planner|T01地图到中心均6，但到最近据点A5/B4/C4；未验证20～40分钟|T07真实实玩记录座位、轮数、时长、胜法；有明显位置优势时由Planner另发地图修订任务；当前NOT_RUN，不阻塞工程搭建|
+|P11|环境验证缺口；2026-09-07；Planner|OPEN / Executor(T02)|当前没有依赖安装、构建或真实局域网设备验证|T02-A1～A5提交版本/命令/设备证据；关键验收缺失阻断T02批准；当前NOT_RUN|
+|P12|资源容量风险；2026-09-07；Planner|OPEN / Planner|T05请求去重缓存按房间生命周期保留，长期开房会占内存|T07记录正常25轮三人局缓存数量/内存；本期不做互联网承载承诺，若异常增长提交明确修订；不得在Executor中静默过期已成功请求|

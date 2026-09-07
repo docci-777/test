@@ -1,0 +1,174 @@
+{
+  "mapId": "map-v1",
+  "width": 15,
+  "height": 15,
+  "legend": {
+    "P": "plain",
+    "F": "forest",
+    "M": "mountain"
+  },
+  "rows": [
+    "PPPPPPPPPPPPPPP",
+    "PPPPPPPPPPPPPPP",
+    "PPPPPPPPPPPPPPP",
+    "PPPFPPPPPPPFPPP",
+    "PPPPMPPPPPMPPPP",
+    "PMPPPPPPPPPPPMP",
+    "PPPPPFPPPFPPPPP",
+    "PPPPPPPPPPPPPPP",
+    "PPPPPPPPPPPPPPP",
+    "PPPPPPPPPPPPPPP",
+    "PPPPPFPPPFPPPPP",
+    "PPPPMPPPPPMPPPP",
+    "PPFPPPPFPPPPFPP",
+    "PPPPPPPFPPPPPPP",
+    "PPPPPPPPPPPPPPP"
+  ],
+  "bases": {
+    "A": [
+      7,
+      1
+    ],
+    "B": [
+      2,
+      8
+    ],
+    "C": [
+      12,
+      8
+    ]
+  },
+  "outposts": [
+    {
+      "id": "O1",
+      "pos": [
+        7,
+        6
+      ]
+    },
+    {
+      "id": "O2",
+      "pos": [
+        6,
+        8
+      ]
+    },
+    {
+      "id": "O3",
+      "pos": [
+        8,
+        8
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "A-I1",
+      "owner": "A",
+      "kind": "infantry",
+      "pos": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "A-I2",
+      "owner": "A",
+      "kind": "infantry",
+      "pos": [
+        8,
+        2
+      ]
+    },
+    {
+      "id": "A-C1",
+      "owner": "A",
+      "kind": "cavalry",
+      "pos": [
+        7,
+        3
+      ]
+    },
+    {
+      "id": "A-R1",
+      "owner": "A",
+      "kind": "archer",
+      "pos": [
+        7,
+        0
+      ]
+    },
+    {
+      "id": "B-I1",
+      "owner": "B",
+      "kind": "infantry",
+      "pos": [
+        3,
+        7
+      ]
+    },
+    {
+      "id": "B-I2",
+      "owner": "B",
+      "kind": "infantry",
+      "pos": [
+        3,
+        9
+      ]
+    },
+    {
+      "id": "B-C1",
+      "owner": "B",
+      "kind": "cavalry",
+      "pos": [
+        4,
+        8
+      ]
+    },
+    {
+      "id": "B-R1",
+      "owner": "B",
+      "kind": "archer",
+      "pos": [
+        1,
+        8
+      ]
+    },
+    {
+      "id": "C-I1",
+      "owner": "C",
+      "kind": "infantry",
+      "pos": [
+        11,
+        7
+      ]
+    },
+    {
+      "id": "C-I2",
+      "owner": "C",
+      "kind": "infantry",
+      "pos": [
+        11,
+        9
+      ]
+    },
+    {
+      "id": "C-C1",
+      "owner": "C",
+      "kind": "cavalry",
+      "pos": [
+        10,
+        8
+      ]
+    },
+    {
+      "id": "C-R1",
+      "owner": "C",
+      "kind": "archer",
+      "pos": [
+        13,
+        8
+      ]
+    }
+  ]
+}

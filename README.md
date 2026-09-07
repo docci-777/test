@@ -12,3 +12,7 @@
 - [原始玩法](three-player-turn-based-game-mvp.md)
 
 规划者按 PLANNING 工作；审查者按 REVIEW 工作；实施者只接收 IMPLEMENTATION 中 READY 且被指派的任务。原始玩法保留为来源，当前范围以规划文档为准。
+
+
+## 当前交接
+T01 v1规则/地图/协议已形成待审查提案，入口见[计划实施文档](docs/IMPLEMENTATION.md)。T02已有完整任务但仍DRAFT，须T01独立审查通过、合并并收尾后才可释放；当前没有可执行的READY任务，也没有可运行游戏。
