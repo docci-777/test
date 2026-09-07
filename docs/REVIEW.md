@@ -53,3 +53,21 @@ git diff c2dc0f743dbe0dc40951e80d2ca125cbdd7647d9..HEAD --check  PASS
 - P10 地图平衡、P11 环境/真实设备验证、P12 请求缓存容量仍按 ISSUE 记录延后，不阻断 T01 契约批准。
 
 **结论：APPROVED。** 本结论锁定上述原始 PR head 及其合并内容；若后续修改契约或 T02 指令，须重新锁定 SHA 审查。
+
+## 2026-09-07 固定 SHA 复核记录：T01 v1
+
+- Reviewer 会话：`/root/reviewer`
+- 模型/推理强度：`gpt-5.6-luna` / `max`
+- 任务与版本：T01 规则与接口契约 / v1
+- PR：#13（`docci-777/test`）
+- 原始 PR head：`cc613daedb4a61d74010c8cdbbc3f60a7b8d9967`
+- 实际合并提交：`8bc63014bd47702c64414bdff6e0a44b2623cb38`
+- 四项验收：G01～G09 规则缺口 **PASS**；地图与通路 **PASS**；原稿 O01～O19/E01～E12 映射及边界 **PASS**；T02 可执行性 **PASS**。
+
+独立证据详见 `/private/tmp/test-reviewer-report.md`。Docker 中执行：
+
+```text
+docker run --rm --entrypoint sh -v /private/tmp/test-collaboration-0907:/workspace -w /workspace catan-e2e:latest -c 'set -eu; python3 docs/contracts/verify_map.py; python3 -m json.tool docs/contracts/map-v1.json >/dev/null; git diff cc613daedb4a61d74010c8cdbbc3f60a7b8d9967^ cc613daedb4a61d74010c8cdbbc3f60a7b8d9967 --check'
+```
+
+结果：地图 225 格、设施/12 个初始单位无重叠、步兵/弓兵与骑兵可达性、三方双路线和加权距离检查均 **PASS**；JSON 及原始提交 diff 检查 **PASS**。结论：**APPROVED**，仅适用于上述固定 SHA；未批准 T02 实现。T02 的 npm 安装、构建、规则测试、浏览器、真实三设备/LAN 和服务实际验证均仍为 **NOT_RUN**，因当前阶段只有契约/地图，按 T02/T07 后续任务执行。

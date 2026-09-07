@@ -15,4 +15,4 @@
 
 
 ## 当前交接
-T01 v1规则/地图/协议已形成待审查提案，入口见[计划实施文档](docs/IMPLEMENTATION.md)。T02已有完整任务但仍DRAFT，须T01独立审查通过、合并并收尾后才可释放；当前没有可执行的READY任务，也没有可运行游戏。
+T01 v1规则/地图/协议已完成独立审查并收尾为DONE（PR #13合并提交 `8bc63014bd47702c64414bdff6e0a44b2623cb38`），入口见[计划实施文档](docs/IMPLEMENTATION.md)。T02已READY并指派`luna_worker_executor`；T03～T07仍DRAFT；当前没有可运行游戏。

@@ -1,5 +1,5 @@
 # 计划实施文档
-版本：0.2；2026-09-07；任务明细唯一来源；实施者当前无 READY 任务。
+版本：0.2；2026-09-07；任务明细唯一来源；实施者当前有 T02 READY 任务（指派 `luna_worker_executor`）。
 ## 实施者协议
 只执行被明确指派、状态 READY 且依赖 DONE 的任务。任务缺少接口、规则、文件范围、验收或可运行验证命令时记录 BLOCKED，交 Planner 补全。
 读取指定源代码和任务附件是允许的；不要据路线图或审查意见自行新增功能。只更新本任务执行/测试/问题区域及 STATUS 对应摘要，不能改规划区域。
@@ -32,9 +32,9 @@ DRAFT 是有意保留的规划阶段，不能把以上摘要当成完整实施�
 同一PR提交中的附件共同构成T01 v1，不允许任意混用其他分支版本。独立Reviewer在REVIEW中锁定本PR实际head SHA；本文不写自引用提交SHA。
 
 ### Planner执行/交接记录
-2026-09-07：读取main全部10个文件，确认原规划已进入main，无应用代码。历史v0.1状态与当前main不同，已同步STATUS；制定D07～D16，G01～G09有明确设计处置，尚待审查确认关闭。
-验证：`python docs/contracts/verify_map.py` PASS（225格、12兵、全可通行格连通、每基地两条内部不相交通路、距离比较）；详见附件证据。规划文档本地链接/映射检查PASS。应用构建/规则测试/浏览器/三设备验证均NOT_RUN，无应用；独立审查NOT_RUN。
-未完成：Reviewer正式审查记录已追加；已收到独立Reviewer对原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 四项验收通过的反馈。原始PR #13合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`，据此完成T01收尾。若后续记录发现需返工，Planner升任务/附件版本并保留旧决策，不交实施者直接改契约。
+历史快照（T01审查前）：2026-09-07：读取main全部10个文件，确认原规划已进入main，无应用代码。历史v0.1状态与当前main不同，已同步STATUS；制定D07～D16，G01～G09有明确设计处置，尚待审查确认关闭。
+验证（同一历史快照）：`python docs/contracts/verify_map.py` PASS（225格、12兵、全可通行格连通、每基地两条内部不相交通路、距离比较）；详见附件证据。规划文档本地链接/映射检查PASS。应用构建/规则测试/浏览器/三设备验证均NOT_RUN，无应用；当时独立审查NOT_RUN。当前T01审查结论见下方收尾记录。
+收尾记录：Reviewer正式审查记录已追加；已收到独立Reviewer对原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 四项验收通过的反馈。原始PR #13合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`，据此完成T01收尾。若后续记录发现需返工，Planner升任务/附件版本并保留旧决策，不交实施者直接改契约。
 下一角色：`luna_worker_executor`按T02 READY任务实施；Reviewer正式记录已写入`docs/REVIEW.md`。Planner未编写业务代码、未代做独立审查。
 完成区域：Reviewer已批准原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 的四项验收；原始PR #13合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`；2026-09-07，T01置DONE。G01～G09关闭证据为D07～D15及T01契约审查。T02现为READY，指派`luna_worker_executor`；T03仍DRAFT。
 
@@ -49,6 +49,8 @@ DRAFT 是有意保留的规划阶段，不能把以上摘要当成完整实施�
 包含：React/Vite页面、Node HTTP + ws服务、共享包占位、可配置端口、同源连接、构建/启动脚本、最小服务冒烟与使用说明。排除：棋盘、单位/房间/回合业务、登录、数据库、云服务、部署平台、外网发布及新增游戏设计。
 
 允许文件：根 package.json/package-lock.json/tsconfig.base.json/.gitignore/.nvmrc；apps/web/{package.json,tsconfig.json,index.html,vite.config.ts,src/**}；apps/server/{package.json,tsconfig.json,src/**}；packages/game/{package.json,tsconfig.json,src/index.ts}；packages/protocol/{package.json,tsconfig.json,src/index.ts}；scripts/{smoke.mjs,check-offline-assets.mjs}；README.md；本任务执行/测试/问题区域；STATUS对应摘要；ISSUES追加执行问题。除上述内容外先BLOCKED交Planner，不改AGENTS、规划区域、契约、审查结论，不引入CI或容器作为额外交付。
+
+执行环境约束：T02 的依赖查询、安装、类型检查、构建、启动、冒烟、离线检查及其他项目命令必须在本机 Docker 容器内执行；可直接复用已有镜像运行（当前可用镜像为 `catan-e2e:latest`），或使用仓库外临时 Dockerfile/Compose 配置并挂载工作区执行。临时配置不写入仓库、不作为 T02 交付物，也不新增容器相关仓库文件。不得在宿主机安装项目依赖或启动项目服务。Docker 不可用或缺少必要权限时记录 BLOCKED 交 Planner，不绕过该约束。此段只规定执行环境，不改变 T02-A1～A6 的命令、输入、预期或批准门槛。
 
 依赖选择方法（须在实施环境实际查询，不把规划当作已安装验证）：
 1. 运行 `node --version`、`npm --version`；选择Node22系列且>=22.12.0的可用补丁版，.nvmrc锁实际精确版，package.json engines指定 `>=22.12.0 <23`，根packageManager锁实际npm精确版。环境不能满足则BLOCKED，记录实际值，不擅改技术栈。
