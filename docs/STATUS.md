@@ -6,12 +6,12 @@ main已包含v0.1协作文档；T01 v1契约提案现已完成编写：225格地
 
 ## 当前
 T01已DONE：Reviewer批准原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 四项验收，合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`。
-T02 v1已REVIEW，指派`luna_worker_executor`；工作区、单服务HTTP/WS探针、中文工程页、smoke与离线资源检查已在 Docker 内完成，`npm ci`、`npm ls --all`、typecheck、build、smoke、offline检查均通过，浏览器证据已记录；T02-A5真实第二设备仍NOT_RUN，故不置DONE/APPROVED。T03～T07均DRAFT。已DONE任务1/7；无应用业务代码、无可运行游戏。
+T02 v1当前为READY（仅R1返工），指派`luna_worker_executor`；PR15 head `4534a2acc9d9a89bda9f0c1fdd07b2dfbea0778e` 审查结论为`CHANGES_REQUESTED`：A1/A3/A6已PASS，A2/A4需按R1修复，A5真实第二设备证据仍NOT_RUN并阻断批准。已有工作区、单服务HTTP/WS探针、中文工程页、smoke与离线资源检查及Docker回归证据须保留；T03～T07均DRAFT。已DONE任务1/7；无应用业务代码、无可运行游戏。
 G01～G09已关闭，证据为D07～D15及T01契约审查。P10地图平衡、P11依赖/设备验证、P12缓存容量风险见ISSUES。
 
 ## 下一步与交接
 独立高阶Reviewer已按REVIEW完成并批准对已合并的T01 v1实际内容、四条验收及附件的审查，重点核对结算顺序、房间生命周期和完整性。若后续发现需返工，由Planner修订任务后重新送审。
-T01已完成审查收尾并释放T02；Executor仅按T02 READY任务实施。三个角色均由Luna承担；T02完成并审查后停止并等待用户，不开放T03。
+T01已完成审查收尾；Executor按T02 v1/R1返工指派修复A2/A4，保留A5 NOT_RUN及P11真实第二设备缺证，完成返工并重新送审后再决定T02是否批准。三个角色均由Luna承担；T03保持DRAFT且不开放。
 
 ## 历史
 2026-09-07 v0.1：基于e46aca5原稿建立规划/协作文件，当时全部DRAFT。其后这些文件已进入本轮main基线；本轮同步该现状，不再沿用“v0.1尚未进入main”的旧摘要。

@@ -36,6 +36,17 @@
 |P11|环境验证缺口；2026-09-07；Planner|OPEN / Executor(T02)|当前没有依赖安装、构建或真实局域网设备验证|T02-A1～A5提交版本/命令/设备证据；关键验收缺失阻断T02批准；当前NOT_RUN|
 |P12|资源容量风险；2026-09-07；Planner|OPEN / Planner|T05请求去重缓存按房间生命周期保留，长期开房会占内存|T07记录正常25轮三人局缓存数量/内存；本期不做互联网承载承诺，若异常增长提交明确修订；不得在Executor中静默过期已成功请求|
 
+## 2026-09-08 T02 PR15返工问题（阻断T02批准）
+
+来源：PR15 head `4534a2acc9d9a89bda9f0c1fdd07b2dfbea0778e`；Reviewer 结论 `CHANGES_REQUESTED`；详细证据见`/private/tmp/test-t02-review.md`及`docs/REVIEW.md`。以下新增问题不覆盖原始P11或T02失败历史。
+
+|ID|类型/日期/发现者|状态/Owner|来源与影响|R1安排/关闭证据要求|
+|---|---|---|---|---|
+|P13|health等待超时；2026-09-08；Reviewer|OPEN / Executor(T02)|`scripts/smoke.mjs:93-112`的`waitForHealth`每次`fetch`无单次剩余deadline；无响应health夹具约12秒仍被外部timeout终止，T02-A2失败|R1为每次fetch传入总10秒deadline的剩余超时（`AbortSignal.timeout`或等价）；Docker `/tmp`夹具约10秒非零失败并确认`finally`清理；重新提交A2退出码/耗时/清理证据；关联P11实机缺证仍阻断批准|
+|P14|离线资源扫描误报HTML文档链接；2026-09-08；Reviewer|OPEN / Executor(T02)|`scripts/check-offline-assets.mjs:40-42`把普通`<a href="https://…">`当资源引用，合法文档导航导致T02-A4失败|R1忽略HTML普通`a`文档导航，同时继续对CSS `url`/`@import`、`fetch`/`import`/`WebSocket`、`script src`/`link stylesheet`外链返回非零；Docker `/tmp`正反夹具回归并提交A4结果；关联P11实机缺证仍阻断批准|
+
+P11关联：P11原有“没有依赖安装、构建或真实局域网设备验证”的记录保留为历史；当前T02-A1/A3/A6已有通过证据，但T02-A5真实第二设备/LAN证据（设备、浏览器、主机IP、步骤和截图）仍`NOT_RUN`，继续阻断批准。R1只修复P13/P14，不关闭P11、不批准T02、不开放T03。
+
 ## 2026-09-07 流程事实校正（Planner）
 原始T01 PR #13 已在独立审查前合并（合并提交 `8bc63014bd47702c64414bdff6e0a44b2623cb38`，原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967`）。Reviewer已反馈四项验收通过，Planner据此将T01置DONE并释放T02 READY给`luna_worker_executor`；三个角色均由Luna承担，T02完成后停止等待用户，不开放T03。Owner：Planner。
 

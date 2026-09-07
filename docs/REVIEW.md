@@ -71,3 +71,25 @@ docker run --rm --entrypoint sh -v /private/tmp/test-collaboration-0907:/workspa
 ```
 
 结果：地图 225 格、设施/12 个初始单位无重叠、步兵/弓兵与骑兵可达性、三方双路线和加权距离检查均 **PASS**；JSON 及原始提交 diff 检查 **PASS**。结论：**APPROVED**，仅适用于上述固定 SHA；未批准 T02 实现。T02 的 npm 安装、构建、规则测试、浏览器、真实三设备/LAN 和服务实际验证均仍为 **NOT_RUN**，因当前阶段只有契约/地图，按 T02/T07 后续任务执行。
+
+## 2026-09-08 T02 v1 独立审查记录：PR15
+
+- Reviewer 会话：`/root/reviewer`；模型/推理强度：`gpt-5.6-luna` / `max`
+- 任务与版本：T02 工程与单服务局域网启动 / v1
+- PR：#15；被审 head：`4534a2acc9d9a89bda9f0c1fdd07b2dfbea0778e`；base：`b48af71e2f77a55511dc642d6c5b4025278355f0`
+- 审查范围：25 文件 diff、T02 任务、源码、smoke/offline 脚本及浏览器证据；未审查后续 T03～T07。
+
+### T02 验收矩阵
+
+1. **A1 PASS。** Docker 中 `npm ci`、`npm ls --all`、`npm run typecheck`、`npm run build` 均 exit 0；依赖树 JSON `problems=[]`。
+2. **A2 FAIL（P1）。** 正常 `npm run test:smoke` exit 0，覆盖 health、首页 JS/CSS、404、WS、非法/占用端口；但用不响应 `/health` 的 Docker 临时服务夹具运行 `timeout 12s node scripts/smoke.mjs` 得到 exit 124。`smoke.mjs:93-112` 单次 fetch 无硬超时，10 秒 deadline 可被卡住的请求突破。期望：10 秒内非零退出并清理。
+3. **A3 PASS。** Docker 临时端口 `31837` 的 127.0.0.1 与容器非内部 IP health/首页通过；`PORT=bad`、`65536`、占用端口均 exit 1 且中文报错。
+4. **A4 FAIL（P2）。** 正常 `check:offline` exit 0、`externalReferences=[]`；文档 Markdown/普通 URL 不误报，fetch/CSS `@import`/HTML link 正向外部加载夹具均被检出。但合法 `<a href="https://docs.example.invalid/reference">` 被 `check-offline-assets.mjs:40-42` 当资源报错。期望：保留实际加载引用检测并忽略 HTML 文档锚点。
+5. **A5 NOT_RUN（P1，阻断）。** `/private/tmp/test-t02-browser-proof.json` 明确是 Docker browser，且注明不是第二实体设备；桌面/手机截图不能替代真实第二设备。缺少设备、浏览器、主机 IP、步骤和截图的真实 LAN 证据。
+6. **A6 PASS。** README 覆盖 Docker 安装/build、默认/自定义端口、关闭、LAN IP、防火墙排查和当前限制；变更在 T02 允许文件内；Docker `git diff --check` exit 0。官方 `node:22.23.2` 镜像核对为 Node `22.23.2`、npm `10.9.8`。
+
+### 独立验证与结论
+
+正常路径 Docker 命令：`npm ci`、`npm ls --all`、`npm run typecheck`、`npm run build`、`npm run test:smoke`、`npm run check:offline`、`git diff --check`；A1/A3/A6 及正常 A2/A4 结果如上。临时夹具只写 Docker `/tmp`，未停止 `test-t02-app-0907` 或 `test-t02-browser-0907`。详细复现、期望和浏览器证据见 `/private/tmp/test-t02-review.md`。
+
+**结论：CHANGES_REQUESTED。** A2 的 smoke 硬超时、A4 的 HTML 文档链接误报需修复，A5 需补真实第二设备证据；在三项完成并重新锁定 head 前，不批准 T02、不置 DONE、不开放 T03。
