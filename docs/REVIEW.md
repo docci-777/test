@@ -110,3 +110,11 @@ docker run --rm --entrypoint sh -v /private/tmp/test-collaboration-0907:/workspa
 `catan-e2e:latest` Docker（`--network none`）中 `npm run test:smoke` exit 0，startup/health/首页 JS-CSS/404/WS/非法和占用端口均通过；`npm run check:offline` exit 0，`externalReferences: []`。P13/P14 完整夹具证据见 [`/private/tmp/test-t02-r1-review.md`](file:///private/tmp/test-t02-r1-review.md)；夹具只存在容器 `/tmp`，未停止主代理验收容器。
 
 **结论：P13/P14 修复通过，原两项返工问题关闭；整体仍 CHANGES_REQUESTED。** A5 真实第二设备仍 NOT_RUN，Docker 浏览器/同机截图不能替代实体局域网设备，该 P11 证据门槛仍阻断 T02 APPROVED/DONE 和 T03 开放。
+
+
+## 2026-09-08 T02 A5 用户实机验收确认与收尾
+- 任务与版本：T02 工程与单服务局域网启动 / v1。
+- 已合入实现：PR #16，`main` 合并提交 `452fdfc387b07cf4d341e1ecd3bc658b85a41dfc`。
+- A5 验收来源：用户在本协作会话中确认，另一台 Android 手机使用 Microsoft Edge 访问 `http://192.168.0.3:3100`，页面显示“服务已连接”。
+- 证据范围：会话中未提供截图或录像。该项记录为用户完成的人工实机验收；不将其表述为自动化检查或 Reviewer 的独立设备复现。
+- 结论：A5 按用户确认记为 PASS。结合此前 A1、A2、A3、A4、A6 的通过记录、P13/P14 的 R1 复核关闭及 PR #16 的既有合入，T02 状态为 DONE。T03 仍为 DRAFT，须等待用户确认后启动。

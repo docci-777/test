@@ -6,12 +6,12 @@ main已包含v0.1协作文档；T01 v1契约提案现已完成编写：225格地
 
 ## 当前
 T01已DONE：Reviewer批准原始head `cc613daedb4a61d74010c8cdbbc3f60a7b8d9967` 四项验收，合并提交为`8bc63014bd47702c64414bdff6e0a44b2623cb38`。
-T02 v1当前为BLOCKED（等待A5真实第二设备证据），指派`luna_worker_executor`；R1代码SHA `c86df40f12e47cad9292c2d061f4c2751dd98710`复核通过，P13/P14已CLOSED，正常smoke/offline在Docker `--network none`下通过；A1/A3/A6已PASS，A5仍NOT_RUN并阻断批准。整体审查仍CHANGES_REQUESTED，T02未APPROVED、未合并、未DONE。已有工作区、单服务HTTP/WS探针、中文工程页、smoke与离线资源检查及Docker回归证据须保留；T03～T07均DRAFT。已DONE任务1/7；无应用业务代码、无可运行游戏。
+T02 v1已完成，指派`luna_worker_executor`。R1代码SHA `c86df40f12e47cad9292c2d061f4c2751dd98710`复核通过，P13/P14已CLOSED，正常smoke/offline在Docker `--network none`下通过；A1～A6均PASS。T02-A5由用户于2026-09-08人工实机确认：另一台 Android 手机使用 Microsoft Edge 访问`http://192.168.0.3:3100`，页面显示“服务已连接”；会话中未附截图。实现已由PR #16合入`main`（`452fdfc387b07cf4d341e1ecd3bc658b85a41dfc`）。已有工作区、单服务HTTP/WS探针、中文工程页、smoke与离线资源检查及Docker回归证据须保留；T03～T07均DRAFT。已DONE任务2/7；无应用业务代码、无可运行游戏。
 G01～G09已关闭，证据为D07～D15及T01契约审查。P10地图平衡、P11依赖/设备验证、P12缓存容量风险见ISSUES。
 
 ## 下一步与交接
 独立高阶Reviewer已按REVIEW完成并批准对已合并的T01 v1实际内容、四条验收及附件的审查，重点核对结算顺序、房间生命周期和完整性。若后续发现需返工，由Planner修订任务后重新送审。
-T01已完成审查收尾；R1代码复核已通过并关闭P13/P14，T02因A5真实第二设备缺证当前BLOCKED，PR15等待用户提供实机证据及后续授权合并；整体未批准、未合并、未完成。三个角色均由Luna承担；T03保持DRAFT且不开放。
+T01与T02均已完成；T02代码已由PR #16合入`main`，A5实机验收由用户确认通过并已记录。三个角色均由Luna承担；T03保持DRAFT，等待用户确认后才开始。
 
 ## 历史
 2026-09-08 T02 R1复核：代码SHA `c86df40f12e47cad9292c2d061f4c2751dd98710` 的P13/P14复核通过并关闭；A5真实第二设备证据仍NOT_RUN，T02保持BLOCKED，整体未批准、未合并、未DONE。
@@ -21,3 +21,5 @@ T01已完成审查收尾；R1代码复核已通过并关闭P13/P14，T02因A5真
 
 ## 同步规则
 每次开始、交接、阻塞、返工、审查和合并由对应角色同步任务记录/本文件；重要问题及决策同步ISSUES/DECISIONS并保留历史。当前没有自动调度、后台监测或CI文档检查，不宣称无人工作时自动更新。
+
+2026-09-08 T02收尾：用户确认另一台 Android 手机通过 Microsoft Edge 访问`http://192.168.0.3:3100`并显示“服务已连接”。该人工实机验证使A5由NOT_RUN更新为PASS；未附截图。PR #16已合入main，T02置DONE；T03继续DRAFT。
