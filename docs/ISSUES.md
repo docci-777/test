@@ -65,3 +65,9 @@ P11关联：P11原有“没有依赖安装、构建或真实局域网设备验�
 |G07|CLOSED|D13、`RULES-v1.md` 战斗边界规则|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
 |G08|CLOSED|D14、`RULES-v1.md` 据点控制规则|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
 |G09|CLOSED|D15、`PROTOCOL-v1.md` 房间与重连协议|T01 v1 Reviewer APPROVED，原始 head `cc613da`|
+
+
+## 2026-09-08 T02 A5 实机验收收尾
+|编号|状态|验收记录|处理结果|
+|---|---|---|---|
+|P11|CLOSED / Planner|用户确认另一台 Android 手机以 Microsoft Edge 访问 `http://192.168.0.3:3100`，页面显示“服务已连接”。会话中未附截图或录像，因此该项是用户的人工实机验收声明，不是自动化或 Reviewer 亲自复现的证据。|T02-A5 记录为 PASS；既有 A1～A4、A6 和 R1 复核保持有效。实现已由 PR #16 合入 `main`（`452fdfc387b07cf4d341e1ecd3bc658b85a41dfc`），T02 DONE；T03 继续 DRAFT。|
